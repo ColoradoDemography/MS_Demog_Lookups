@@ -3,7 +3,7 @@ NodeJS Microservice for MuniPopHousingTimeseries Data
 
 *In Development at:* 
 
-https://d2bm5f0oqkufle.cloudfront.net/gather?
+https://d2bm5f0oqkufle.cloudfront.net/munipophousing?
 
 **Parameters**
 
@@ -23,7 +23,7 @@ stats: comma separated list  (none defaults to totalpopulation)
  - occupiedhousingunits
  - vacanthousingunits
  
-example:  https://d2bm5f0oqkufle.cloudfront.net/gather?year=2014&placefips=4000&compressed=yes
+example:  https://d2bm5f0oqkufle.cloudfront.net/munipophousing?year=2014&placefips=4000&compressed=yes
 
 output
 ```

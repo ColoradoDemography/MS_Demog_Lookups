@@ -15,7 +15,7 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 // respond with "Hello World!" on the homepage
-app.get('/gather', function(req, res) {
+app.get('/munipophousing', function(req, res) {
 
     //schema.table combination
     var schtbl = "estimates.munipophousingtimeseries_v2014";
