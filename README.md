@@ -64,6 +64,14 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 [More Info](doc/household_projections.md)
 
 
+#### Jobs by Sector - NAICS Based
+/jobs<br />
+**Filename** jobs\_by\_sector.js<br />
+**Data:** Total Jobs<br />
+**Years** 2001 to 2014<br />
+**Elements:** County, Year, Sector (NAICS Code)<br />
+[More Info](doc/jobs_by_sector.md)
+
 #### Labor Force Participation
 /labor-force<br />
 **Filename** labor\_force\_participation.js<br />

@@ -17,6 +17,27 @@ app.use(allowCrossDomain);
 // respond with "Hello World!" on the homepage
 app.get('/sya', function(req, res) {
 
+  
+      function validate(data, check) {
+        var valid;
+
+        for (var i = 0; i < data.length; i++) {
+            valid = false;
+            for (var j = 0; j < check.length; j++) {
+                if (data[i] === check[j]) {
+                    valid = true;
+                }
+            }
+            if (!valid) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+  
+  
+  
     //table name
     var schtbl = "estimates.county_sya_2015";
   
@@ -72,6 +93,11 @@ app.get('/sya', function(req, res) {
 
     //create array of county fips codes
     var county = (req.query.county).split(",");
+    var countydomain = ["0", "1", "3", "5", "7", "9", "11", "13", "14", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59", "61", "63", "65", "67", "69", "71", "73", "75", "77", "79", "81", "83", "85", "87", "89", "91", "93", "95", "97", "99", "101", "103", "105", "107", "109", "111", "113", "115", "117", "119", "121", "123", "125"];
+    if (!validate(county, countydomain)) {
+        res.send('one of your county inputs is not valid!');
+        return;
+    }
 
     //create sql selector for years
     for (j = 0; j < county.length; j++) {
@@ -83,7 +109,12 @@ app.get('/sya', function(req, res) {
 
     //create array of years
     var year = (req.query.year).split(",");
-
+    var yeardomain = ["1990","1991","1992","1993","1994","1995","1996","1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032","2033","2034","2035","2036","2037","2038","2039","2040","2041","2042","2043","2044","2045","2046","2047","2048","2049","2050"];
+    if (!validate(year, yeardomain)) {
+        res.send('one of your year inputs is not valid!');
+        return;
+    }
+  
     //create sql selector for years
     for (j = 0; j < year.length; j++) {
         yearstring = yearstring + schtbl + ".year = " + year[j] + " OR ";
@@ -92,10 +123,15 @@ app.get('/sya', function(req, res) {
     yearstring = yearstring.substring(0, yearstring.length - 3);
 
 
-    //create array of years
+    //create array of ages
     var age = (req.query.age).split(",");
-
-    //create sql selector for years
+    var agedomain = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90"];
+    if (!validate(age, agedomain)) {
+        res.send('one of your year inputs is not valid!');
+        return;
+    }
+  
+    //create sql selector for ages
     for (j = 0; j < age.length; j++) {
         agestring = agestring + schtbl + ".age = " + age[j] + " OR ";
     }
