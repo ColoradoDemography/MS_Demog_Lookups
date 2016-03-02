@@ -1,6 +1,15 @@
 # MS_Demog_Lookups
 NodeJS microservice suite to deliver Colorado State Demography Office Products
 
+#### Industry Base Analysis
+/base-analysis<br />
+**Filename** base\_analysis.js<br />
+**Data:** Base Analysis Industry Report Variables<br />
+**Years** 2014<br />
+**Elements:** County\*<br />
+[More Info](doc/baseanalysis.md)
+
+
 #### Components of Change
 /components?<br />
 **Filename** components\_of\_change.js<br />
