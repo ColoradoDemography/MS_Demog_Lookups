@@ -1,5 +1,5 @@
-# MS_MuniPopHousingTimeseries
-NodeJS Microservice for MuniPopHousingTimeseries Data
+# Municipal Population and Housing Timeseries
+NodeJS Microservice for County and Municipal Population and Housing Timeseries Data
 
 *In Development at:* 
 

@@ -18,7 +18,7 @@ app.use(allowCrossDomain);
 app.get('/sya-race-estimates', function(req, res) {
 
     //table name
-    var schtbl = "estimates.countysyarace1114";
+    var schtbl = "estimates.county_sya_race_estimates";
 
   var gender="";
   var genderstring=" sex='M' OR sex='F' ";  //

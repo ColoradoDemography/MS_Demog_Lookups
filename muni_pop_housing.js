@@ -18,7 +18,7 @@ app.use(allowCrossDomain);
 app.get('/munipophousing', function(req, res) {
 
     //schema.table combination
-    var schtbl = "estimates.munipophousingtimeseries_v2014";
+    var schtbl = "estimates.muni_pop_housing";
     var basequery = "SELECT municipalityname,year,countyfips,placefips,";
     var statlist = "totalpopulation"; //default if no statlist selected
 

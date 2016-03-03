@@ -39,7 +39,7 @@ app.get('/sya', function(req, res) {
   
   
     //table name
-    var schtbl = "estimates.county_sya_2015";
+    var schtbl = "estimates.county_sya";
   
     //schema.table combination
     var basequery = "SELECT countyfips,year,age,county,malepopulation,femalepopulation,totalpopulation,datatype from " + schtbl + " where ";

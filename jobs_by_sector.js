@@ -18,7 +18,7 @@ app.use(allowCrossDomain);
 app.get('/jobs', function(req, res) {
 
     //table name
-    var schtbl = "estimates.jobs_by_sector_transform";
+    var schtbl = "estimates.jobs_by_sector";
   
     //schema.table combination
     var basequery = "SELECT area_code,sector_id,sector_name,population_year,total_jobs from " + schtbl + " where ";

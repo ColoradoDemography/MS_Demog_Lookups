@@ -7,25 +7,25 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 **Data:** Base Analysis Industry Report Variables<br />
 **Years** 2014<br />
 **Elements:** County\*<br />
-[More Info](doc/baseanalysis.md)
+[More Info](doc/base_analysis.md)
 
 
 #### Components of Change
 /components?<br />
-**Filename** components\_of\_change.js<br />
+**Filename** components\_change.js<br />
 **Data:** Births, Deaths, and Net Migration<br />
 **Years:** 1970 to 2014 (Estimates), 2015 to 2050 (Forecast)<br />
 **Elements:** County, Year<br />
-[More Info](doc/components_of_change.md)
+[More Info](doc/components_change.md)
 
 
 #### County Demographic Profiles
 /profile?<br />
-**Filename** county\_demographic\_profiles.js<br />
+**Filename** county\_profiles.js<br />
 **Data:** Births, Deaths, Natural Increase, Net Migration, Building Permits, Group Quarters Population, Households, Household Population, Household Size, Total Housing Units, Vacant Housing Units, Vacancy Rate<br />
 **Years** 1985 to 2014<br />
 **Elements:** County, Year<br />
-[More Info](doc/county_demographic_profiles.md)
+[More Info](doc/county_profiles.md)
 
 
 #### County Race by Age Forecast
@@ -83,9 +83,9 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 
 #### Municipal Population and Housing Estimates
 /munipophousing<br />
-**Filename** munipophousing.js<br />
+**Filename** muni\_pop\_housing.js<br />
 **Data:** Population, Household Population, Group Quarters Population, Household Size, Housing Units, Occupied Housing Units, Vacant Housing Units, Vacancy Rate<br />
 **Years** 2010 to 2014<br />
 **Elements:** Municipality, Year<br />
-[More Info](doc/munipophousing.md)
+[More Info](doc/muni_pop_housing.md)
 

@@ -22,7 +22,7 @@ app.use(allowCrossDomain);
 app.get('/household', function(req, res) {
 
     //table name
-    var schtbl = "estimates.householdprojections_v2014";
+    var schtbl = "estimates.household_projections";
 
 
   

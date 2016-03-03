@@ -18,7 +18,7 @@ app.use(allowCrossDomain);
 app.get('/sya-race-forecast', function(req, res) {
 
     //table name
-    var schtbl = "estimates.countyracebyage2050_v2014";
+    var schtbl = "estimates.county_race_by_age_forecast";
 
     //schema.table combination
     var basequery = "SELECT county,county_fips,year,age,race,count from " + schtbl + " WHERE ";

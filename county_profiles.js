@@ -18,7 +18,7 @@ app.use(allowCrossDomain);
 app.get('/profile', function(req, res) {
 
     //table name
-    var schtbl = "estimates.county_profile";
+    var schtbl = "estimates.county_profiles";
 
   //list of demographic variables
   var stats = req.query.vars;
