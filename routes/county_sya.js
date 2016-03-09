@@ -1,18 +1,4 @@
-//node modules
-var express = require('express');
-var app = express();
-var pg = require('pg');
-var conString = "postgres://codemog:demography@54.69.15.55/dola";
-
-
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET');
-
-    next();
-}
-
-app.use(allowCrossDomain);
+module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage
 app.get('/sya', function(req, res) {
@@ -178,8 +164,4 @@ app.get('/sya', function(req, res) {
 });
 
 
-var server = app.listen(4000, function() {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log('Example app listening at http://', host, port);
-});
+}
