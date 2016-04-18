@@ -3,7 +3,7 @@ NodeJS microservice to serve CO Demography Single Year of Age Race Estimates by 
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4000/sya-race-estimates?
+https://gis.dola.colorado.gov/sya-race-estimates?
 
 **Parameters**
 
@@ -52,7 +52,7 @@ sex: (optional)   Default is sum of male and female
       b or B: both genders listed (rather than summed)
   
 Example:
-http://red-meteor-147235.nitrousapp.com:4000/sya-race-estimates?age=0&county=1&year=2012&race=6&sex=b
+https://gis.dola.colorado.gov/sya-race-estimates?age=0&county=1&year=2012&race=6&sex=b
 
 output
 ```

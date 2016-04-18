@@ -3,7 +3,7 @@ NodeJS microservice to access Colorado Labor Force Participation Rate Projection
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4001/labor-force?
+https://gis.dola.colorado.gov/labor-force?
 
 **Parameters**
 
@@ -41,7 +41,7 @@ sex: (optional)   Default is sum of male and female
       b or B: both genders listed (rather than summed)
   
 Example:
-http://red-meteor-147235.nitrousapp.com:4001/labor-force?year=2010,2011,2012&county=13,14&age=f,g&gender=b&group=opt4
+https://gis.dola.colorado.gov/labor-force?year=2010,2011,2012&county=13,14&age=f,g&gender=b&group=opt4
 
 output
 ```

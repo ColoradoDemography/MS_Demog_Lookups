@@ -3,7 +3,7 @@ NodeJS microservice for accessing colorado jobs data
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4001/jobs?
+https://gis.dola.colorado.gov/jobs?
 
 **Parameters**
 
@@ -109,7 +109,7 @@ sector: (comma separated with leading zeros as necessary)  Optional. (Default is
 
   
 Example:
-http://red-meteor-147235.nitrousapp.com:4001/jobs?county=1,3&year=2014,2013,2012&sector=04000,01010
+https://gis.dola.colorado.gov/jobs?county=1,3&year=2014,2013,2012&sector=04000,01010
 
 output
 ```

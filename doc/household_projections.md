@@ -3,7 +3,7 @@ NodeJS microservice for accessing colorado household projections
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4001/household?
+https://gis.dola.colorado.gov/household?
 
 **Parameters**
 
@@ -50,7 +50,7 @@ group: (optional)   Default is no grouping
 
   
 Example:
-http://red-meteor-147235.nitrousapp.com:4001/household?county=1,3&year=2010&age=1,2&household=1,2,3&group=opt8
+https://gis.dola.colorado.gov/household?county=1,3&year=2010&age=1,2&household=1,2,3&group=opt8
 
 output
 ```

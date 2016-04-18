@@ -3,7 +3,7 @@ NodeJS microservice for Colorado Demography County Demographic Profile Informati
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4001/profile?
+https://gis.dola.colorado.gov/profile?
 
 **Parameters**
 
@@ -33,7 +33,7 @@ http://red-meteor-147235.nitrousapp.com:4001/profile?
   
 
   
-http://red-meteor-147235.nitrousapp.com:4001/profile?county=1&year=2011,2012&vars=births,deaths
+https://gis.dola.colorado.gov/profile?county=1&year=2011,2012&vars=births,deaths
 
 *output*
 ```

@@ -3,7 +3,7 @@ NodeJS microservice for Colorado County Single Year of Age Data (Estimates and F
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4000/sya?
+https://gis.dola.colorado.gov/sya?
 
 **Parameters**
 
@@ -22,7 +22,7 @@ group: (optional)   Default is no grouping
   opt3 = Group by Age and Year
   
 
-http://red-meteor-147235.nitrousapp.com:4000/sya?age=15,16&county=1,3&year=1990,2025
+https://gis.dola.colorado.gov/sya?age=15,16&county=1,3&year=1990,2025
 
 output
 ```

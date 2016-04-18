@@ -11,7 +11,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 
 
 #### Components of Change
-/components?<br />
+/components<br />
 **Filename** components\_change.js<br />
 **Data:** Births, Deaths, and Net Migration<br />
 **Years:** 1970 to 2014 (Estimates), 2015 to 2050 (Forecast)<br />
@@ -20,7 +20,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 
 
 #### County Demographic Profiles
-/profile?<br />
+/profile<br />
 **Filename** county\_profiles.js<br />
 **Data:** Births, Deaths, Natural Increase, Net Migration, Building Permits, Group Quarters Population, Households, Household Population, Household Size, Total Housing Units, Vacant Housing Units, Vacancy Rate<br />
 **Years** 1985 to 2014<br />

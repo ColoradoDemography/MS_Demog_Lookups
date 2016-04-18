@@ -4,7 +4,7 @@ NodeJS microservice for Demography's Single Year of Age by Race Forecast to 2050
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4000/sya-race-forecast?
+https://gis.dola.colorado.gov/sya-race-forecast?
 
 **Parameters**
 
@@ -50,7 +50,7 @@ group: (optional)   Default is no grouping
   
   
 Example:
-http://red-meteor-147235.nitrousapp.com:4000/sya-race-forecast?age=0,18&county=1,3,5,7&year=2010&race=1,2&group=opt9
+https://gis.dola.colorado.gov/sya-race-forecast?age=0,18&county=1,3,5,7&year=2010&race=1,2&group=opt9
 
 output
 ```

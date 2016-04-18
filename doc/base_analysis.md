@@ -4,7 +4,7 @@ NodeJS microservice to deliver Colorado State Demography Office Industry Base An
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4001/base-analysis?
+https://gis.dola.colorado.gov/base-analysis?
 
 **Parameters**
 
@@ -15,7 +15,7 @@ Special Cases:
  - Statewide code is 0
 
   
-http://red-meteor-147235.nitrousapp.com:4001/base-analysis?county=3
+https://gis.dola.colorado.gov/base-analysis?county=3
 
 *output*
 ```

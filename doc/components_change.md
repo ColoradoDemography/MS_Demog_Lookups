@@ -4,7 +4,7 @@ NodeJS microservice to deliver Colorado State Demography Office Components of Ch
 
 *In Development at:* 
 
-http://red-meteor-147235.nitrousapp.com:4001/components?
+https://gis.dola.colorado.gov/components?
 
 **Parameters**
 
@@ -19,7 +19,7 @@ http://red-meteor-147235.nitrousapp.com:4001/components?
   
 
   
-http://red-meteor-147235.nitrousapp.com:4001/components?county=1&year=2010,2011,2012
+https://gis.dola.colorado.gov/components?county=1&year=2010,2011,2012
 
 *output*
 ```
