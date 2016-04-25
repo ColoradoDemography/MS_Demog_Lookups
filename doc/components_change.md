@@ -2,10 +2,6 @@
 NodeJS microservice to deliver Colorado State Demography Office Components of Change Data
 
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/components?
-
 **Parameters**
 
 *county*: (comma separated integers)  Mandatory.
@@ -19,7 +15,7 @@ https://gis.dola.colorado.gov/components?
   
 
   
-https://gis.dola.colorado.gov/components?county=1&year=2010,2011,2012
+https://gis.dola.colorado.gov/lookups/components?county=1&year=2010,2011,2012
 
 *output*
 ```

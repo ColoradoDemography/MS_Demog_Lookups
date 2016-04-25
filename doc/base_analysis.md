@@ -2,10 +2,6 @@
 NodeJS microservice to deliver Colorado State Demography Office Industry Base Analysis Data
 
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/base-analysis?
-
 **Parameters**
 
 *county*: (comma separated integers)  Mandatory.  
@@ -15,7 +11,7 @@ Special Cases:
  - Statewide code is 0
 
   
-https://gis.dola.colorado.gov/base-analysis?county=3
+https://gis.dola.colorado.gov/lookups/base-analysis?county=3
 
 *output*
 ```

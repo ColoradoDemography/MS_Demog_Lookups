@@ -1,9 +1,6 @@
 # MS_CountySYA
 NodeJS microservice for Colorado County Single Year of Age Data (Estimates and Forecasts)
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/sya?
 
 **Parameters**
 
@@ -22,7 +19,7 @@ group: (optional)   Default is no grouping
   opt3 = Group by Age and Year
   
 
-https://gis.dola.colorado.gov/sya?age=15,16&county=1,3&year=1990,2025
+https://gis.dola.colorado.gov/lookups/sya?age=15,16&county=1,3&year=1990,2025
 
 output
 ```

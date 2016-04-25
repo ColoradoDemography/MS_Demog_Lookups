@@ -1,9 +1,6 @@
 # MS_County_Demographic_Profiles
 NodeJS microservice for Colorado Demography County Demographic Profile Information
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/profile?
 
 **Parameters**
 
@@ -33,7 +30,7 @@ https://gis.dola.colorado.gov/profile?
   
 
   
-https://gis.dola.colorado.gov/profile?county=1&year=2011,2012&vars=births,deaths
+https://gis.dola.colorado.gov/lookups/profile?county=1&year=2011,2012&vars=births,deaths
 
 *output*
 ```

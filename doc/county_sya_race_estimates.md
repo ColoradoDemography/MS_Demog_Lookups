@@ -1,9 +1,6 @@
 # MS_County_SYA_Race_Estimates
 NodeJS microservice to serve CO Demography Single Year of Age Race Estimates by Race
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/sya-race-estimates?
 
 **Parameters**
 
@@ -52,7 +49,7 @@ sex: (optional)   Default is sum of male and female
       b or B: both genders listed (rather than summed)
   
 Example:
-https://gis.dola.colorado.gov/sya-race-estimates?age=0&county=1&year=2012&race=6&sex=b
+https://gis.dola.colorado.gov/lookups/sya-race-estimates?age=0&county=1&year=2012&race=6&sex=b
 
 output
 ```

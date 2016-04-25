@@ -1,9 +1,6 @@
 # MS_Household_Projections
 NodeJS microservice for accessing colorado household projections
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/household?
 
 **Parameters**
 
@@ -50,7 +47,7 @@ group: (optional)   Default is no grouping
 
   
 Example:
-https://gis.dola.colorado.gov/household?county=1,3&year=2010&age=1,2&household=1,2,3&group=opt8
+https://gis.dola.colorado.gov/lookups/household?county=1,3&year=2010&age=1,2&household=1,2,3&group=opt8
 
 output
 ```

@@ -1,9 +1,6 @@
 # Municipal Population and Housing Timeseries
 NodeJS Microservice for County and Municipal Population and Housing Timeseries Data
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/munipophousing?
 
 **Parameters**
 
@@ -23,7 +20,7 @@ stats: comma separated list  (none defaults to totalpopulation)
  - occupiedhousingunits
  - vacanthousingunits
  
-https://gis.dola.colorado.gov/munipophousing?year=2014&placefips=4000&compressed=yes
+https://gis.dola.colorado.gov/lookups/munipophousing?year=2014&placefips=4000&compressed=yes
 
 output
 ```

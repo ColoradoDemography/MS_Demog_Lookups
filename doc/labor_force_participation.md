@@ -1,9 +1,6 @@
 # MS_Labor_Force_Participation
 NodeJS microservice to access Colorado Labor Force Participation Rate Projections from 2010 to 2040
 
-*In Development at:* 
-
-https://gis.dola.colorado.gov/labor-force?
 
 **Parameters**
 
@@ -41,7 +38,7 @@ sex: (optional)   Default is sum of male and female
       b or B: both genders listed (rather than summed)
   
 Example:
-https://gis.dola.colorado.gov/labor-force?year=2010,2011,2012&county=13,14&age=f,g&gender=b&group=opt4
+https://gis.dola.colorado.gov/lookups/labor-force?year=2010,2011,2012&county=13,14&age=f,g&gender=b&group=opt4
 
 output
 ```
