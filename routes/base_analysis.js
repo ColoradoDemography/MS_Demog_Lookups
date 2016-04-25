@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString){
   
 // respond with "Hello World!" on the homepage_group_id
-app.get('/base-analysis', function(req, res) {
+app.get('/lookups/base-analysis', function(req, res) {
 
   
   var sqlstring;
