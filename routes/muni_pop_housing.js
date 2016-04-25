@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage
-app.get('/munipophousing', function(req, res) {
+app.get('/lookups/munipophousing', function(req, res) {
 
   
     //function to check all data input against valid values

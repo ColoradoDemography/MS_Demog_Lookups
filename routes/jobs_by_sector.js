@@ -2,7 +2,7 @@
 module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage
-app.get('/jobs', function(req, res) {
+app.get('/lookups/jobs', function(req, res) {
 
     //table name
     var schtbl = "estimates.jobs_by_sector";

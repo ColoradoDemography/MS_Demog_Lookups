@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage_group_id
-app.get('/household', function(req, res) {
+app.get('/lookups/household', function(req, res) {
 
     //table name
     var schtbl = "estimates.household_projections";
