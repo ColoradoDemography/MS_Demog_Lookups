@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage
-app.get('/lookups/components', function(req, res) {
+app.get('/components', function(req, res) {
 
     //table name
     var schtbl = "estimates.components_change";

@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage
-app.get('/lookups/sya', function(req, res) {
+app.get('/sya', function(req, res) {
 
   
       function validate(data, check) {

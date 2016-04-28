@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString){
 
 // respond with "Hello World!" on the homepage
-app.get('/lookups/sya-race-forecast', function(req, res) {
+app.get('/sya-race-forecast', function(req, res) {
 
     //table name
     var schtbl = "estimates.county_race_by_age_forecast";
