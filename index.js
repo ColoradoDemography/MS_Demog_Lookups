@@ -23,9 +23,16 @@ require('./routes/household_projections.js')(app, pg, conString);
 require('./routes/jobs_by_sector.js')(app, pg, conString);
 require('./routes/labor_force_participation.js')(app, pg, conString);
 require('./routes/muni_pop_housing.js')(app, pg, conString);
+require('./routes/regions/components_change_regions.js')(app, pg, conString);
+require('./routes/regions/labor_force_regions.js')(app, pg, conString);
+require('./routes/regions/county_profiles_regions.js')(app, pg, conString);
+require('./routes/regions/county_sya_race_est_regions.js')(app, pg, conString);
+require('./routes/regions/county_race_by_age_regions.js')(app, pg, conString);
+require('./routes/regions/county_sya_regions.js')(app, pg, conString);
+require('./routes/regions/household_proj_regions.js')(app, pg, conString);
+require('./routes/regions/jobs_by_sector_regions.js')(app, pg, conString);
 
-
-var server = app.listen(4001, function() {
+var server = app.listen(4567, function() {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://', host, port);

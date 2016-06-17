@@ -1,0 +1,308 @@
+module.exports = function(app, pg, conString){
+
+// respond with "Hello World!" on the homepage
+app.get('/sya-race-estimates_regions', function(req, res) {
+
+    //table name
+    var schtbl = "estimates.county_sya_race_estimates_region";
+
+  var gender="";
+  var genderstring=" sex='M' OR sex='F' ";  //
+  
+  
+      //adjustments to query if sex is a parameter
+    if (req.query.sex) {
+      if(req.query.sex!=="f" && req.query.sex!=="f" && req.query.sex!=="m" && req.query.sex!=="M" && req.query.sex!=="b" && req.query.sex!=="B"){
+        res.send('your sex parameter is not valid! must be one of the following: f,F,m,M,b,B.  Leaving out this parameter defaults to the sum of male + female.');
+        return;
+      }
+      if(req.query.sex==="f" || req.query.sex==="F"){gender="sex,"; genderstring=" sex='F' ";}
+      if(req.query.sex==="m" || req.query.sex==="M"){gender="sex,"; genderstring=" sex='M' ";}
+      if(req.query.sex==="b" || req.query.sex==="B"){gender="sex,"; }      
+    }
+    
+  
+    //schema.table combination
+    var basequery = "SELECT " + gender + "reg_num,year,age,race,SUM(count) as count from " + schtbl + " WHERE ";
+    var groupby = " GROUP BY " + gender + "reg_num,year,age,race ORDER BY reg_num,year,age,race";
+
+
+    //GROUP BY
+    //opt0: = none or all = base query
+    //opt1: year
+    //opt2: reg_num
+    //opt3: age
+    //opt4: race
+    //opt5: year, reg_num
+    //opt6: year, age
+    //opt7: year, race
+    //opt8: reg_num, age
+    //opt9: reg_num, race
+    //opt10: age, race
+    //opt11: year, reg_num, age
+    //opt12: year, reg_num, race
+    //opt13: year, age, race
+    //opt14: reg_num, age, race
+
+    if (req.query.group) {
+
+        //opt1: year
+        if (req.query.group === "opt1") {
+            basequery = "SELECT " + gender + "year, SUM(count) as count from " + schtbl + " WHERE ";
+            //"SELECT region,reg_num,year,age,race,count from " + schtbl + " WHERE ";
+            groupby = " GROUP BY " + gender + "year ORDER BY " + gender + "year";
+        }
+        //opt2: reg_num
+        if (req.query.group === "opt2") {
+            basequery = "SELECT " + gender + "reg_num, SUM(count) as count from " + schtbl + " WHERE ";
+            //"SELECT region,reg_num,year,age,race,count from " + schtbl + " WHERE ";
+            groupby = " GROUP BY " + gender + "reg_num ORDER BY " + gender + "reg_num";
+        }
+        //opt3: age
+        if (req.query.group === "opt3") {
+            basequery = "SELECT " + gender + "age, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "age ORDER BY " + gender + "age";
+        }
+        //opt4: race
+        if (req.query.group === "opt4") {
+            basequery = "SELECT " + gender + "race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "race ORDER BY " + gender + "race";
+        }
+        //opt5: year, reg_num
+        if (req.query.group === "opt5") {
+            basequery = "SELECT " + gender + "year, reg_num, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "year, reg_num ORDER BY " + gender + "year, reg_num";
+        }
+        //opt6: year, age
+        if (req.query.group === "opt6") {
+            basequery = "SELECT " + gender + "year, age, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "year, age ORDER BY " + gender + "year, age";
+        }
+        //opt7: year, race
+        if (req.query.group === "opt7") {
+            basequery = "SELECT " + gender + "year, race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "year, race ORDER BY " + gender + "year, race";
+        }
+        //opt8: reg_num, age
+        if (req.query.group === "opt8") {
+            basequery = "SELECT " + gender + "reg_num, age, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "reg_num, age ORDER BY " + gender + "reg_num, age";
+        }
+        //opt9: reg_num, race
+        if (req.query.group === "opt9") {
+            basequery = "SELECT " + gender + "reg_num, race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "reg_num, race ORDER BY " + gender + "reg_num, race";
+        }
+        //opt10: age, race
+        if (req.query.group === "opt10") {
+            basequery = "SELECT " + gender + "age, race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "age, race ORDER BY " + gender + "age, race";
+        }
+        //opt11: year, reg_num, age
+        if (req.query.group === "opt11") {
+            basequery = "SELECT " + gender + "year, reg_num, age, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "year, reg_num, age ORDER BY " + gender + "year, reg_num, age";
+        }
+        //opt12: year, reg_num, race
+        if (req.query.group === "opt12") {
+            basequery = "SELECT " + gender + "year, reg_num, race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "year, reg_num, race ORDER BY " + gender + "year, reg_num, race";
+        }
+        //opt13: year, age, race
+        if (req.query.group === "opt13") {
+            basequery = "SELECT " + gender + "year, age, race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "year, age, race ORDER BY " + gender + "year, age, race";
+        }
+        //opt14: reg_num, age, race
+        if (req.query.group === "opt14") {
+            basequery = "SELECT " + gender + "reg_num, age, race, SUM(count) as count from " + schtbl + " WHERE ";
+            groupby = "GROUP BY " + gender + "reg_num, age, race ORDER BY " + gender + "reg_num, age, race";
+        }
+
+    }
+
+    var yearstring = "";
+    var reg_numstring = "";
+    var agestring = "";
+    var racestring = "";
+
+    var sqlstring;
+
+    var i, j; //iterators
+
+
+    //exit if no reg_num
+    if (!req.query.reg_num) {
+        res.send('please specify a reg_num (or comma separated list of region numbers)');
+        return;
+    }
+
+    //exit if no year
+    if (!req.query.year) {
+        res.send('please specify a year (or comma separated list of years)');
+        return;
+    }
+
+    //exit if no age
+    if (!req.query.age) {
+        res.send('please specify a single year of age (or comma separated list of ages - or "all")');
+        return;
+    }
+
+    //exit if no age
+    if (!req.query.race) {
+        res.send('please specify a single race (or comma separated list of races - or "all")');
+        return;
+    }
+
+  
+    //VALIDATE ALL INPUT ONCE IN ARRAYS
+    //reg_num: (integers) : region numbers, comma separated
+    //year: (integers) : comma separated (valid range: 2011-2014)
+    //age: (integers) : comma separated:  range from 0 to 90
+    //race: (integers) : 1: Hispanic, 2: White non Hispanic, 3: Asian non Hispanic, 4: American Indian non Hispanic, 5: Black non Hispanic, 6: Total
+
+
+    //function to check all data input against valid values
+    function validate(data, check) {
+        var valid;
+
+        for (var i = 0; i < data.length; i++) {
+            valid = false;
+            for (var j = 0; j < check.length; j++) {
+                if (data[i] === check[j]) {
+                    valid = true;
+                }
+            }
+            if (!valid) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //create array of reg_num fips codes
+    var reg_num = (req.query.reg_num).split(",");
+    var reg_numdomain = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"];
+    if (!validate(reg_num, reg_numdomain)) {
+        res.send('one of your reg_num inputs is not valid!');
+        return;
+    }
+
+    //create sql selector for years
+    for (j = 0; j < reg_num.length; j++) {
+        reg_numstring = reg_numstring + schtbl + ".reg_num = " + reg_num[j] + " OR ";
+    }
+    //remove stray OR from end of sql selector
+    reg_numstring = reg_numstring.substring(0, reg_numstring.length - 3);
+
+
+    //create array of years
+    var year = (req.query.year).split(",");
+    var yeardomain = ["2011", "2012", "2013", "2014"];
+    if (!validate(year, yeardomain)) {
+        res.send('one of your year inputs is not valid!');
+        return;
+    }
+
+    //create sql selector for years
+    for (j = 0; j < year.length; j++) {
+        yearstring = yearstring + schtbl + ".year = " + year[j] + " OR ";
+    }
+    //remove stray OR from end of sql selector
+    yearstring = yearstring.substring(0, yearstring.length - 3);
+
+
+    //create array of ages
+    var age = (req.query.age).split(",");
+    var agedomain = ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90"];
+    if (!validate(age, agedomain)) {
+        res.send('one of your age inputs is not valid!');
+        return;
+    }
+
+    //create sql selector for ages
+    for (j = 0; j < age.length; j++) {
+        agestring = agestring + schtbl + ".age = " + age[j] + " OR ";
+    }
+    //remove stray OR from end of sql selector
+    agestring = agestring.substring(0, agestring.length - 3);
+
+
+    //create array of races
+    var race = (req.query.race).split(",");
+    var racedomain = ["1", "2", "3", "4", "5", "6"];
+    if (!validate(race, racedomain)) {
+        res.send('one of your race inputs is not valid!');
+        return;
+    }
+
+    //create sql selector for races
+    for (j = 0; j < race.length; j++) {
+        if (race[j] === "1") {
+            race[j] = "'Hispanic'";
+        }
+        if (race[j] === "2") {
+            race[j] = "'White non Hispanic'";
+        }
+        if (race[j] === "3") {
+            race[j] = "'Asian non Hispanic'";
+        }
+        if (race[j] === "4") {
+            race[j] = "'American Indian non Hispanic'";
+        }
+        if (race[j] === "5") {
+            race[j] = "'Black non Hispanic'";
+        }
+        if (race[j] === "6") {
+            race[j] = "'Total'";
+        }
+        racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
+    }
+    //remove stray OR from end of sql selector
+    racestring = racestring.substring(0, racestring.length - 3);
+
+    // 1: Hispanic, 2: White non Hispanic, 3: Asian non Hispanic, 4: American Indian non Hispanic, 5: Black non Hispanic, 6: Total
+
+
+    //put it all together
+    sqlstring = basequery + "(" + genderstring + ") AND " + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ") AND " + "(" + racestring + ")" + groupby + ";";
+
+    console.log(sqlstring);
+
+    sendtodatabase(sqlstring);
+
+
+    function sendtodatabase(sqlstring) {
+
+        var client = new pg.Client(conString);
+
+        client.connect(function(err) {
+
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+
+            client.query(sqlstring, function(err, result) {
+
+                if (err) {
+                    return console.error('error running query', err);
+                }
+
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+
+
+                client.end();
+
+            });
+        });
+    }
+
+});
+
+
+}
