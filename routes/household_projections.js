@@ -248,31 +248,45 @@ app.get('/household', function(req, res) {
     function sendtodatabase(sqlstring) {
 
         var client = new pg.Client(conString);
-
         client.connect(function(err) {
-
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-
             client.query(sqlstring, function(err, result) {
-
                 if (err) {
                     return console.error('error running query', err);
                 }
-
                 res.set({
                     "Content-Type": "application/json"
                 });
                 res.send(JSON.stringify(result.rows));
-
-
                 client.end();
-
             });
         });
+      
     }
 
 });
+  
+app.get('/householdYRS', function(req, res) {
+  
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select year from estimates.household_projections where area_code=0 and household_type_id=0 and age_group_id=0 order by year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+  
+});  
 
 }
