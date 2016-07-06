@@ -139,7 +139,7 @@ app.get('/labor-force', function(req, res) {
 
     //create array of county fips codes
     var county = (req.query.county).split(",");
-    var countydomain = ["1", "3", "5", "7", "9", "11", "13", "14", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59", "61", "63", "65", "67", "69", "71", "73", "75", "77", "79", "81", "83", "85", "87", "89", "91", "93", "95", "97", "99", "101", "103", "105", "107", "109", "111", "113", "115", "117", "119", "121", "123", "125"];
+    var countydomain = ["0", "1", "3", "5", "7", "9", "11", "13", "14", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59", "61", "63", "65", "67", "69", "71", "73", "75", "77", "79", "81", "83", "85", "87", "89", "91", "93", "95", "97", "99", "101", "103", "105", "107", "109", "111", "113", "115", "117", "119", "121", "123", "125"];
     if (!validate(county, countydomain)) {
         res.send('one of your county inputs is not valid!');
         return;
@@ -247,5 +247,25 @@ app.get('/labor-force', function(req, res) {
 
 });
 
-
+app.get('/labor-forceYRS', function(req, res) {
+  
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select population_year from estimates.labor_force_participation where area_code=0 and gender='Female' and age_group='16 to 19' order by population_year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+  
+});
+  
 }
