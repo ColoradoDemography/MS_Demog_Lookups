@@ -144,4 +144,24 @@ app.get('/jobs', function(req, res) {
 });
 
 
+app.get('/jobsYRS', function(req, res) {
+
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select population_year from estimates.jobs_by_sector where area_code=0 and sector_id='07000' order by population_year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+});  
+  
 }
