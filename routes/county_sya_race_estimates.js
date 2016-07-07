@@ -325,4 +325,27 @@ app.get('/sya-race-estimates', function(req, res) {
         });
   });  
   
+  
+  app.get('/sya-race-estimatesAGE', function(req, res){
+
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select age from estimates.county_sya_race_estimates where county_fips=1 and year=2011 and sex='M' and race='Hispanic' order by age asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+  });  
+  
+
+  
 }
