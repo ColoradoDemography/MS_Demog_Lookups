@@ -217,4 +217,27 @@ slist = (statlist).split(",");
 
 });
 
+  
+  
+  app.get('/munipophousingYRS', function(req, res){
+
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select year from estimates.muni_pop_housing where countyfips=3 and placefips=1090 order by year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+  });
+  
+  
 }
