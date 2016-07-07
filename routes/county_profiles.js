@@ -181,4 +181,25 @@ app.get('/profile', function(req, res) {
 
 });
 
+  
+  app.get('/profileYRS', function(req, res){
+
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select year from estimates.county_profiles where countyfips=0 order by year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+  });  
+  
 }

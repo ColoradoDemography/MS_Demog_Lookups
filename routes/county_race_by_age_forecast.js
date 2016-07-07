@@ -287,5 +287,25 @@ app.get('/sya-race-forecast', function(req, res) {
 
 });
 
+  
+  app.get('/sya-race-forecastYRS', function(req, res){
 
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select year from estimates.county_race_by_age_forecast where county_fips=1 and age=0 and race='Hispanic' order by year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                res.send(JSON.stringify(result.rows));
+                client.end();
+            });
+        });
+  });  
+  
 }
