@@ -23,6 +23,7 @@
   "homepage": "https://github.com/royhobbstn/MS_Demog_Lookups#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "pg": "^4.5.1"
+    "pg": "^4.5.1",
+    "request": "^2.73.0"
   }
 }

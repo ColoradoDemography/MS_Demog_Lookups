@@ -1,7 +1,8 @@
-
 var validate = require("../modules/common_functions.js").validate;
 var pad = require("../modules/common_functions.js").pad;
 var sendtodatabase = require("../modules/common_functions.js").sendtodatabase;
+var request = require('request');
+
 
 
 module.exports = function(app, pg, conString) {
@@ -9,56 +10,96 @@ module.exports = function(app, pg, conString) {
 
     app.get('/base-analysis', function(req, res) {
 
-        var sqlstring;
+        //get valid counties
+        var p1 = new Promise(function(resolve, reject) {
+            request('http://red-meteor-147235.nitrousapp.com:4001/base-analysis_county', function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var jsonResponse = JSON.parse(body) // Show the HTML for the Google homepage.
+                    var cntyArray = jsonResponse.map(function(d) {
+                        return d.fips;
+                    });
+                    resolve(cntyArray);
+                }
+            });
+        });
 
-        //table name
-        var schtbl = "estimates.base_analysis";
+        //get valid regions
+        var p2 = new Promise(function(resolve, reject) {
+            request('http://red-meteor-147235.nitrousapp.com:4001/base-analysis_region', function(error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var jsonResponse = JSON.parse(body) // Show the HTML for the Google homepage.
+                    var rgnArray = jsonResponse.map(function(d) {
+                        return 'reg' + d.reg_num;
+                    });
+                    resolve(rgnArray);
+                }
+            });
+        });
 
-        //schema.table combination
-        var basequery = "SELECT * from " + schtbl + " WHERE ";
+        //once you have gathered all valid counties and regions, combine them into one array (valid_areas)
+        Promise.all([p1, p2]).then(function(values) {
+            var valid_areas = [].concat.apply([], values);
+            //off to the main function, passing along the valid_areas
+            main(valid_areas);
+        }, function(reason) {
+            //failure for whatever reason
+            console.log(reason)
+        });
 
-        //exit if no county
-        if (!req.query.county) {
-            res.send('please specify a county');
-            return;
-        }
+        function main(valid_areas) {
 
+            var sqlstring, basequery;
 
-        //create array of county fips codes
-        var county = (req.query.county).split(",");
-        var countydomain = ["0", "1", "3", "5", "7", "9", "11", "13", "14", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59", "61", "63", "65", "67", "69", "71", "73", "75", "77", "79", "81", "83", "85", "87", "89", "91", "93", "95", "97", "99", "101", "103", "105", "107", "109", "111", "113", "115", "117", "119", "121", "123", "125", "500", "reg1", "reg2", "reg4", "reg5", "reg6", "reg7", "reg8", "reg9", "reg10", "reg11", "reg12", "reg13", "reg14", "reg15", "reg16", "reg18", "reg19"];
-        if (!validate(county, countydomain)) {
-            res.send('your county input is not valid!');
-            return;
-        }
-
-        var regioncheck = (req.query.county.slice(0, 3));
-        if (regioncheck === "reg") {
-            //new querystring formation based upon region view
-            sqlstring = "SELECT * from estimates.base_analysis_region WHERE (estimates.base_analysis_region.reg_num = '" + req.query.county.slice(3) + "' );";
-
-        } else {
-
-            var countystring = "";
-
-            //create sql selector for years
-            for (j = 0; j < county.length; j++) {
-                countystring = countystring + schtbl + ".fips = '" + pad(county[j], 3) + "' OR ";
+            //exit if no county
+            if (!req.query.county) {
+                res.send('please specify a county');
+                return;
             }
-            //remove stray OR from end of sql selector
-            countystring = countystring.substring(0, countystring.length - 3);
 
-            //put it all together
-            sqlstring = basequery + "(" + countystring + ");";
+            //create array of county fips codes
+            var county = (req.query.county).split(",");
 
+            //pad the areas (counties, since region areas are already formatted correctly on input, whereas counties are given as integers in querystring)
+            var padcounty = county.map(function(d) {
+                console.log(pad(d, 3));
+                return pad(d, 3);
+            });
+
+            //compare areas input in the querystring to valid areas gathered from the database query.
+            if (!validate(padcounty, valid_areas)) {
+                res.send('your county/region input is not valid!');
+                return;
+            }
+
+            //can either query regions or counties, not both at same time
+            //determination to use region lookup or county lookup is determined by first area.
+            var regioncheck = (req.query.county.slice(0, 3));
+            if (regioncheck === "reg") {
+                padcounty.forEach(function(d, i){
+                  padcounty[i] = parseInt(d.replace('reg',''));
+                });
+                basequery = "SELECT * from estimates.base_analysis_region WHERE ";
+                var regionstring = construct_delimited_string(padcounty, 'estimates.base_analysis_region', 'reg_num');
+                sqlstring = basequery + "(" + regionstring + ");";
+            } else {
+                basequery = "SELECT * from estimates.base_analysis WHERE ";
+                var countystring = construct_delimited_string(padcounty, 'estimates.base_analysis', 'fips');
+                sqlstring = basequery + "(" + countystring + ");";
+            }
+
+            console.log("QUERY: " + sqlstring);
+            sendtodatabase(sqlstring, pg, conString, res);
         }
-
-        console.log(sqlstring);
-        sendtodatabase(sqlstring, pg, conString, res);
-
-
-
     });
 
+    //endpoint to gather valid counties
+    app.get('/base-analysis_county', function(req, res) {
+        sendtodatabase("select distinct fips from estimates.base_analysis order by fips asc;", pg, conString, res);
+    });
+
+    //endpoint to gather valid regions
+    app.get('/base-analysis_region', function(req, res) {
+        sendtodatabase("select distinct reg_num from estimates.base_analysis_region order by reg_num asc;", pg, conString, res);
+    });
 
 }

@@ -1,3 +1,7 @@
+var validate = require("../modules/common_functions.js").validate;
+var sendtodatabase = require("../modules/common_functions.js").sendtodatabase;
+
+
 module.exports = function(app, pg, conString) {
 
 
@@ -75,25 +79,6 @@ module.exports = function(app, pg, conString) {
         //year: (integers) : comma separated (valid range: 1985-2014)
 
 
-        //function to check all data input against valid values
-        function validate(data, check) {
-            var valid;
-
-            for (var i = 0; i < data.length; i++) {
-                valid = false;
-                for (var j = 0; j < check.length; j++) {
-                    if (data[i] === check[j]) {
-                        valid = true;
-                    }
-                }
-                if (!valid) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
         //create array of county fips codes
         var county = (req.query.county).split(",");
         var countydomain = ["0", "1", "3", "5", "7", "9", "11", "13", "14", "15", "17", "19", "21", "23", "25", "27", "29", "31", "33", "35", "37", "39", "41", "43", "45", "47", "49", "51", "53", "55", "57", "59", "61", "63", "65", "67", "69", "71", "73", "75", "77", "79", "81", "83", "85", "87", "89", "91", "93", "95", "97", "99", "101", "103", "105", "107", "109", "111", "113", "115", "117", "119", "121", "123", "125"];
@@ -132,57 +117,17 @@ module.exports = function(app, pg, conString) {
 
         console.log(sqlstring);
 
-        sendtodatabase(sqlstring);
+        sendtodatabase(sqlstring, pg, conString, res);
 
 
-        function sendtodatabase(sqlstring) {
-
-            var client = new pg.Client(conString);
-
-            client.connect(function(err) {
-
-                if (err) {
-                    return console.error('could not connect to postgres', err);
-                }
-
-                client.query(sqlstring, function(err, result) {
-
-                    if (err) {
-                        return console.error('error running query', err);
-                    }
-
-                    res.set({
-                        "Content-Type": "application/json"
-                    });
-                    res.send(JSON.stringify(result.rows));
-
-
-                    client.end();
-
-                });
-            });
-        }
 
     });
 
+
     app.get('/componentYRS', function(req, res) {
 
-        var client = new pg.Client(conString);
-        client.connect(function(err) {
-            if (err) {
-                return console.error('could not connect to postgres', err);
-            }
-            client.query("select year, datatype from estimates.components_change where countyfips=0 order by year asc;", function(err, result) {
-                if (err) {
-                    return console.error('error running query', err);
-                }
-                res.set({
-                    "Content-Type": "application/json"
-                });
-                res.send(JSON.stringify(result.rows));
-                client.end();
-            });
-        });
+        sendtodatabase("select year, datatype from estimates.components_change where countyfips=0 order by year asc;", pg, conString, res);
+
     });
 
 
@@ -260,24 +205,6 @@ module.exports = function(app, pg, conString) {
         //year: (integers) : comma separated (valid range: 1985-2014)
 
 
-        //function to check all data input against valid values
-        function validate(data, check) {
-            var valid;
-
-            for (var i = 0; i < data.length; i++) {
-                valid = false;
-                for (var j = 0; j < check.length; j++) {
-                    if (data[i] === check[j]) {
-                        valid = true;
-                    }
-                }
-                if (!valid) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
 
         //create array of reg_num fips codes
         var reg_num = (req.query.reg_num).split(",");
@@ -317,36 +244,8 @@ module.exports = function(app, pg, conString) {
 
         console.log(sqlstring);
 
-        sendtodatabase(sqlstring);
+        sendtodatabase(sqlstring, pg, conString, res);
 
-
-        function sendtodatabase(sqlstring) {
-
-            var client = new pg.Client(conString);
-
-            client.connect(function(err) {
-
-                if (err) {
-                    return console.error('could not connect to postgres', err);
-                }
-
-                client.query(sqlstring, function(err, result) {
-
-                    if (err) {
-                        return console.error('error running query', err);
-                    }
-
-                    res.set({
-                        "Content-Type": "application/json"
-                    });
-                    res.send(JSON.stringify(result.rows));
-
-
-                    client.end();
-
-                });
-            });
-        }
 
     });
 
