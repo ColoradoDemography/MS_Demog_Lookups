@@ -1,6 +1,8 @@
 var validate = require("../modules/common_functions.js").validate;
 var pad = require("../modules/common_functions.js").pad;
 var sendtodatabase = require("../modules/common_functions.js").sendtodatabase;
+var construct_delimited_string = require("../modules/common_functions.js").construct_delimited_string;
+
 var request = require('request');
 
 
@@ -12,7 +14,7 @@ module.exports = function(app, pg, conString) {
 
         //get valid counties
         var p1 = new Promise(function(resolve, reject) {
-            request('http://red-meteor-147235.nitrousapp.com:4001/base-analysis_county', function(error, response, body) {
+            request('https://gis.dola.colorado.gov/lookups/base-analysis_county', function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var jsonResponse = JSON.parse(body) // Show the HTML for the Google homepage.
                     var cntyArray = jsonResponse.map(function(d) {
@@ -25,7 +27,7 @@ module.exports = function(app, pg, conString) {
 
         //get valid regions
         var p2 = new Promise(function(resolve, reject) {
-            request('http://red-meteor-147235.nitrousapp.com:4001/base-analysis_region', function(error, response, body) {
+            request('https://gis.dola.colorado.gov/lookups/base-analysis_region', function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var jsonResponse = JSON.parse(body) // Show the HTML for the Google homepage.
                     var rgnArray = jsonResponse.map(function(d) {
@@ -61,7 +63,6 @@ module.exports = function(app, pg, conString) {
 
             //pad the areas (counties, since region areas are already formatted correctly on input, whereas counties are given as integers in querystring)
             var padcounty = county.map(function(d) {
-                console.log(pad(d, 3));
                 return pad(d, 3);
             });
 

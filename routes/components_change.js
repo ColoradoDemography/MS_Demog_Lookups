@@ -110,16 +110,11 @@ module.exports = function(app, pg, conString) {
         //remove stray OR from end of sql selector
         yearstring = yearstring.substring(0, yearstring.length - 3);
 
-
-
         //put it all together
         sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") " + groupby + ";";
 
-        console.log(sqlstring);
-
+        console.log("QUERY: " + sqlstring);
         sendtodatabase(sqlstring, pg, conString, res);
-
-
 
     });
 
@@ -128,6 +123,16 @@ module.exports = function(app, pg, conString) {
 
         sendtodatabase("select year, datatype from estimates.components_change where countyfips=0 order by year asc;", pg, conString, res);
 
+    });
+
+    //endpoint to gather valid counties
+    app.get('/component_county', function(req, res) {
+        sendtodatabase("select distinct fips from estimates.base_analysis order by fips asc;", pg, conString, res);
+    });
+
+    //endpoint to gather valid regions
+    app.get('/component_region', function(req, res) {
+        sendtodatabase("select distinct reg_num from estimates.base_analysis_region order by reg_num asc;", pg, conString, res);
     });
 
 
