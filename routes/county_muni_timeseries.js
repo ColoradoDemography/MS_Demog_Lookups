@@ -120,6 +120,7 @@ module.exports = function(app, pg, conString) {
 
             if (req.query.compressed === "no") {
                 sqlstring = basequery + statlist + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ');';
+                console.log(sqlstring);
                 sendtodatabase(sqlstring);
             } else if (req.query.compressed === "yes") {
                 basequery = "SELECT year,countyfips,";
@@ -128,6 +129,7 @@ module.exports = function(app, pg, conString) {
                 }
                 statstring = statstring.substring(0, statstring.length - 1);
                 sqlstring = basequery + statstring + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ') group by year,countyfips order by countyfips,year;';
+                console.log(sqlstring);
                 sendtodatabase(sqlstring);
             } else {
                 res.send('please explicity set compressed to yes or no');
@@ -144,6 +146,7 @@ module.exports = function(app, pg, conString) {
 
             if (req.query.compressed === "no") {
                 sqlstring = basequery + statlist + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + placestring + ');';
+                console.log(sqlstring);
                 sendtodatabase(sqlstring);
             } else if (req.query.compressed === "yes") {
                 basequery = "SELECT replace(municipalityname, ' (Part)', '') as municipalityname,year,placefips,";
@@ -152,6 +155,7 @@ module.exports = function(app, pg, conString) {
                 }
                 statstring = statstring.substring(0, statstring.length - 1);
                 sqlstring = basequery + statstring + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + placestring + ') group by year,placefips,municipalityname order by placefips,municipalityname,year;';
+                console.log(sqlstring);
                 sendtodatabase(sqlstring);
             } else {
                 res.send('please explicity set compressed to yes or no');
@@ -173,6 +177,7 @@ module.exports = function(app, pg, conString) {
 
             //placefips and countyfips = looking for particular piece in particular county.  very specific.  compressed doesnt matter
             sqlstring = basequery + statlist + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ') AND (' + placestring + ');';
+            console.log(sqlstring);
             sendtodatabase(sqlstring);
         }
 
