@@ -106,18 +106,8 @@ module.exports = function(app, pg, conString) {
         yearstring = yearstring.substring(0, yearstring.length - 3);
 
 
-        if (req.query.stats) {
-            statdomain = ["totalpopulation"];
-            slist = (req.query.stats).split(",");
-            //validate place input
-            if (!validate(slist, statdomain)) {
-                res.send('one of your stats inputs is not valid!');
-                return;
-            }
-            statlist = req.query.stats;
-        }
         //reset slist to be based off of statlist, just in case default - totalpopulation is used rather than req.query.stats
-        slist = (statlist).split(",");
+        slist = "totalpopulation";
 
 
         if (!req.query.placefips && req.query.countyfips) {
