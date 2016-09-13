@@ -6,11 +6,16 @@ var construct_delimited_string = require("../modules/common_functions.js").const
 var request = require('request');
 
 
-
 module.exports = function(app, pg, conString) {
 
 
     app.get('/base-analysis', function(req, res) {
+      
+           //short circuit to all
+          if(req.query.all === 'yes'){
+            sendtodatabase("SELECT * from estimates.base_analysis;", pg, conString, res);
+          }else{
+       
 
         //get valid counties
         var p1 = new Promise(function(resolve, reject) {
@@ -20,6 +25,7 @@ module.exports = function(app, pg, conString) {
                     var cntyArray = jsonResponse.map(function(d) {
                         return d.fips;
                     });
+                  
                     resolve(cntyArray);
                 }
             });
@@ -51,7 +57,7 @@ module.exports = function(app, pg, conString) {
         function main(valid_areas) {
 
             var sqlstring, basequery;
-
+          
             //exit if no county
             if (!req.query.county) {
                 res.send('please specify a county');
@@ -91,6 +97,8 @@ module.exports = function(app, pg, conString) {
             console.log("QUERY: " + sqlstring);
             sendtodatabase(sqlstring, pg, conString, res);
         }
+    }
+      
     });
 
     //endpoint to gather valid counties
