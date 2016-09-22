@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/royhobbstn/MS_Demog_Lookups.git"
+    "url": "git+https://github.com/coloradodemography/MS_Demog_Lookups.git"
   },
   "keywords": [
     "colorado",
@@ -18,9 +18,9 @@
   "author": "daniel trone",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/royhobbstn/MS_Demog_Lookups/issues"
+    "url": "https://github.com/coloradodemography/MS_Demog_Lookups/issues"
   },
-  "homepage": "https://github.com/royhobbstn/MS_Demog_Lookups#readme",
+  "homepage": "https://github.com/coloradodemography/MS_Demog_Lookups#readme",
   "dependencies": {
     "express": "^4.13.4",
     "pg": "^4.5.1",
