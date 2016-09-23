@@ -171,6 +171,47 @@ module.exports = function(app, pg, conString) {
             });
         });
     });
+    
+        app.get('/historicalcounty', function(req, res) {
+
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select area_name from estimates.historical_census where area_type='C' order by area_name asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                // res.send(JSON.stringify(result.rows));
+                res.send(JSON.parse(JSON.stringify(result.rows).replace(/"\s+|\s+"/g,'"')));
+                client.end();
+            });
+        });
+    });
+        app.get('/historicalYRS', function(req, res) {
+
+        var client = new pg.Client(conString);
+        client.connect(function(err) {
+            if (err) {
+                return console.error('could not connect to postgres', err);
+            }
+            client.query("select population_year from estimates.historical_census where area_name='Adams' order by population_year asc;", function(err, result) {
+                if (err) {
+                    return console.error('error running query', err);
+                }
+                res.set({
+                    "Content-Type": "application/json"
+                });
+                // res.send(JSON.stringify(result.rows));
+                res.send(JSON.parse(JSON.stringify(result.rows).replace(/"\s+|\s+"/g,'"')));
+                client.end();
+            });
+        });
+    });
 
 
 }
