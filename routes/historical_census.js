@@ -158,7 +158,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select area_name from estimates.historical_census where area_type='M' order by area_name asc;", function(err, result) {
+            client.query("select area_name from estimates.historical_census where area_type='M' and population_year=2010  order by area_name asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
@@ -179,7 +179,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select area_name from estimates.historical_census where area_type='C' order by area_name asc;", function(err, result) {
+            client.query("select area_name from estimates.historical_census where area_type='C' and population_year=2010 order by area_name asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
