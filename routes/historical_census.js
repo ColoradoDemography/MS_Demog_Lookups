@@ -25,8 +25,8 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var schtbl = "estimates.historical_census";
-        var basequery = "SELECT area_name,area_type, incorporation_year";
-        var statlist = "total_population"; 
+        var basequery = "SELECT area_name, area_type, population_year";
+        // var statlist = "total_population"; 
 
 
         //population_year: 1870:2010 : comma separated
