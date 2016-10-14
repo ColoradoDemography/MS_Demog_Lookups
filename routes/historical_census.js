@@ -35,10 +35,11 @@ module.exports = function(app, pg, conString) {
 
         var yearstring = "";
         var geostring = "";
-        // var placestring = "";
+        var typestring = "";
       //  var statstring = "";
         var year;
         var geo;
+        var type;
         //var countyfips;
        // var slist = [];
         var sqlstring;
@@ -108,9 +109,11 @@ module.exports = function(app, pg, conString) {
             }
             geostring = geostring.substring(0, geostring.length - 3);
             
+            typestring= typestring + schtbl + ".area_type = " + type;
+            
         //full sql string selector
 
-            sqlstring = basequery + ', total_population ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + geostring + ');';
+            sqlstring = basequery + ', total_population ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + geostring + ') AND (' +typestring + ');';
             sendtodatabase(sqlstring);
             
             console.log(sqlstring)
