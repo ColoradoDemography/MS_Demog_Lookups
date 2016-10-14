@@ -48,9 +48,8 @@ module.exports = function(app, pg, conString) {
 
         var yeardomain = [];
         var geodomain = [];
-        // var countydomain = [];
+         var typedomain = [];
 
-        var statdomain = [];
 
 
         //exit if no year
@@ -109,8 +108,8 @@ module.exports = function(app, pg, conString) {
             }
             geostring = geostring.substring(0, geostring.length - 3);
             
-            typestring= typestring + schtbl + ".area_type = " + type;
-            
+            typestring=  typestring + schtbl + ".area_type = " + "'" + type + "'";
+
         //full sql string selector
 
             sqlstring = basequery + ', total_population ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + geostring + ') AND (' +typestring + ');';
