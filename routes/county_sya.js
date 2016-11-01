@@ -194,7 +194,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select age from estimates.county_sya where countyfips=1 and year=2010 order by age asc;", function(err, result) {
+            client.query("select age from estimates.county_sya where countyfips=1 and year=2011 order by age asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
