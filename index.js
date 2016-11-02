@@ -26,7 +26,7 @@ require('./routes/muni_pop_housing.js')(app, pg, conString);
 require('./routes/county_muni_timeseries.js')(app, pg, conString);
 require('./routes/historical_census.js')(app, pg, conString);
 
-var server = app.listen(process.env.PORT, function() {
+var server = app.listen(4001, function() {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://', host, port);
