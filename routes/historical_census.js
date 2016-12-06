@@ -84,15 +84,15 @@ module.exports = function(app, pg, conString) {
         }
         
                 //validate type, if entered
-        if (req.query.type) {
-            typedomain = ["M", "C" ];
-            type = (req.query.type).split(",");
-            //validate place input
-            if (!validate(type, typedomain)) {
-                res.send('one of your type inputs is not valid!');
-                return;
-            }
-        }
+        // if (req.query.type) {
+        //     typedomain = ["M", "C" ];
+        //     type = (req.query.type).split(",");
+        //     //validate place input
+        //     if (!validate(type, typedomain)) {
+        //         res.send('one of your type inputs is not valid!');
+        //         return;
+        //     }
+        // }
 
 
         //create sql selector for years
@@ -108,11 +108,11 @@ module.exports = function(app, pg, conString) {
             }
             geostring = geostring.substring(0, geostring.length - 3);
             
-            typestring=  typestring + schtbl + ".area_type = " + "'" + type + "'";
+            // typestring=  typestring + schtbl + ".area_type = " + "'" + type + "'";
 
         //full sql string selector
 
-            sqlstring = basequery + ', total_population ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + geostring + ') AND (' +typestring + ');';
+            sqlstring = basequery + ', total_population ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + geostring + ');';
             sendtodatabase(sqlstring);
             
             console.log(sqlstring)
