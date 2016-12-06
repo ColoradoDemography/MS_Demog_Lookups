@@ -35,11 +35,11 @@ module.exports = function(app, pg, conString) {
 
         var yearstring = "";
         var geostring = "";
-        var typestring = "";
+        // var typestring = "";
       //  var statstring = "";
         var year;
         var geo;
-        var type;
+        // var type;
         //var countyfips;
        // var slist = [];
         var sqlstring;
@@ -48,7 +48,7 @@ module.exports = function(app, pg, conString) {
 
         var yeardomain = [];
         var geodomain = [];
-         var typedomain = [];
+        //  var typedomain = [];
 
 
 
