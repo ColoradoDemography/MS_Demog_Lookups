@@ -26,11 +26,16 @@ module.exports = function(app, pg, conString) {
 
         //table name
         var schtbl = "estimates.county_sya";
+        
+        //choice variable
+        var categoryChoice = req.query.choice;
+        
 
         //schema.table combination
         var basequery = "SELECT countyfips,year,age,county,malepopulation,femalepopulation,totalpopulation,datatype from " + schtbl + " where ";
         var groupby = "";
-
+        
+        // these selections refer to the Custom Single Year option
         if (req.query.group) {
             if (req.query.group === "opt1") {
                 basequery = "SELECT year,SUM(malepopulation) as malepopulation,SUM(femalepopulation) as femalepopulation,SUM(totalpopulation) as totalpopulation from " + schtbl + " WHERE ";
@@ -127,10 +132,120 @@ module.exports = function(app, pg, conString) {
         agestring = agestring.substring(0, agestring.length - 3);
 
 
-        //put it all together
-        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
 
-        //console.log(sqlstring);
+        
+
+
+        //put it all together
+        
+        // BT +++  Adding cases for four different query scenarios
+        switch(categoryChoice) {
+        case "single":
+            sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
+            break;
+        case "5yr": 
+
+            sqlstring = "SELECT countyfips,year,age_group as age,county,floor(malepopulation) as malepopulation,floor(femalepopulation) as femalepopulation,floor(totalpopulation) as totalpopulation, datatype from estimates.county_5ya ";
+            sqlstring = sqlstring + "WHERE " + "(" + countystring + ") AND " + "(" + yearstring + ")";
+            sqlstring = sqlstring.replace(/estimates.county_sya./g,"");  // strip table reference
+            sqlstring = sqlstring + " ORDER BY county,year,(left(age_group,2))::int;"
+            break;
+            
+        case "census": 
+
+            sqlstring = "SELECT countyfips,year,age_group as age,county,floor(malepopulation) as malepopulation,floor(femalepopulation) as femalepopulation,floor(totalpopulation) as totalpopulation, datatype from estimates.county_census_grouping_ya ";
+            sqlstring = sqlstring + "WHERE " + "(" + countystring + ") AND " + "(" + yearstring + ")";
+            sqlstring = sqlstring.replace(/estimates.county_sya./g,"");  // strip table reference
+            sqlstring = sqlstring + " ORDER BY county,year,(left(age_group,2))::int;"
+            break;
+        
+        case "custom":
+            // this is a complicated UNION query so we will take it step by step
+            
+            // step 1 - get the incoming custom intervals and put them in an array, figure out if null
+            var age_intervals = (req.query.intervals).split(",");
+            
+           
+            var isInt  // for testing integers
+            var sqlValues = []; // array of values ot plug into SQL
+            
+            
+            for (j = 0; j < age_intervals.length; j++) {
+                if(typeof age_intervals[j] === 'string') {
+                    isInt = /^\+?\d+$/.test(age_intervals[j]);
+                    if (isInt) {
+                        sqlValues.push(age_intervals[j].trim());
+                    } else {
+                        sqlValues.push('null');
+                    }
+                }
+            }
+             // OK we're ready to plug our four pairs of interval values into 4 selects to be unioned.
+             
+             var unionString ='';
+             
+             for(j=0; j < 8;j+=2) {
+                 if(sqlValues[j]==='null' || sqlValues[j+1]==='null') {
+                     // condition = one or both values is not an integer
+                 unionString = unionString + 
+                    "select max(countyfips) as maxfips ,max(datatype) as maxdatatype,max('0') as age_label,year,county,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
+                    "from county_year_filter " +
+                    "where age between null and null " +
+                    "group by county,year " ;
+                
+                 if (j < 6) {
+                     unionString = unionString + " UNION ";
+                    }
+                 } else if(parseInt(sqlValues[j]) < parseInt(sqlValues[j+1])) {
+                    // condition = both values are integers and the first is less than the second
+                 unionString = unionString + 
+                    "select max(countyfips) as maxfips ,max(datatype) as maxdatatype,max('" + sqlValues[j] + " to " + sqlValues[j+1] + "') as age_label,year,county,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
+                    "from county_year_filter " +
+                    "where age between " + sqlValues[j] + " and " + sqlValues[j+1] + " " +
+                    "group by county,year " ;              
+                
+                
+                if (j < 6) {
+                    unionString = unionString + " UNION ";
+                } else {
+                // condition is two integers but first is greater than second
+                  unionString = unionString + 
+                    "select max(countyfips) as maxfips ,max(datatype) as maxdatatype,max('0') as age_label,year,county,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
+                    "from county_year_filter " +
+                    "where age between null and null " +
+                    "group by county,year " ;
+                
+                 if (j < 6) {
+                     unionString = unionString + " UNION ";
+                    }                   
+                }
+                     
+                 }
+             }
+             
+            // OK, we have our UNION criteria, let's set up our county, year criteria
+ 
+            sqlstring = "WITH county_year_filter AS ";
+            sqlstring = sqlstring + " (SELECT * from estimates.county_sya ";
+            sqlstring = sqlstring + "WHERE " + "(" + countystring + ") AND " + "(" + yearstring + ") ) ";
+ 
+            // add beginning SELECT statement
+            sqlstring = "SELECT maxfips as countyfips,year,age_label as age,county,male_pop as malepopulation,fem_pop as femalepopulation,tot_pop as totalpopulation,maxdatatype as datatype FROM (" + sqlstring;
+            
+            // add final stuff, ordering
+            sqlstring = sqlstring + " " + unionString + " ) as mainsub order by county,year,left(age_label,2)::int ;";
+            
+            
+
+
+
+            break;
+}
+
+
+
+         
+        // console.log(sqlstring);
 
         sendtodatabase(sqlstring);
 
@@ -335,6 +450,7 @@ module.exports = function(app, pg, conString) {
 
 
         //put it all together
+
         sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
 
         //console.log(sqlstring);
