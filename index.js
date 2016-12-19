@@ -25,6 +25,7 @@ require('./routes/labor_force_participation.js')(app, pg, conString);
 require('./routes/muni_pop_housing.js')(app, pg, conString);
 require('./routes/county_muni_timeseries.js')(app, pg, conString);
 require('./routes/historical_census.js')(app, pg, conString);
+require('./routes/jobs_forecast.js')(app, pg, conString);
 
 var server = app.listen(4001, function() {
     var host = server.address().address;
