@@ -150,7 +150,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select population_year from estimates.jobs_by_sector where area_code=0 and sector_id='7000' order by population_year asc;", function(err, result) {
+            client.query("select population_year from estimates.jobs_by_sector where area_code=0 and sector_id='07000' order by population_year asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
