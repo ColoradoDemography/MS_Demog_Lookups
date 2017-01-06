@@ -207,6 +207,7 @@ module.exports = function(app, pg, conString) {
                 
                 if (j < 6) {
                     unionString = unionString + " UNION ";
+                    }
                 } else {
                 // condition is two integers but first is greater than second
                   unionString = unionString + 
@@ -220,7 +221,7 @@ module.exports = function(app, pg, conString) {
                     }                   
                 }
                      
-                 }
+                 
              }
              
             // OK, we have our UNION criteria, let's set up our county, year criteria
@@ -237,7 +238,7 @@ module.exports = function(app, pg, conString) {
             
             
 
-
+console.log(sqlstring)
 
             break;
 }
