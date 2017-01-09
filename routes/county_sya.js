@@ -169,7 +169,7 @@ module.exports = function(app, pg, conString) {
             var isInt  // for testing integers
             var sqlValues = []; // array of values ot plug into SQL
             
-            
+            // here is where we determine if the incoming values are integers or nulls
             for (j = 0; j < age_intervals.length; j++) {
                 if(typeof age_intervals[j] === 'string') {
                     isInt = /^\+?\d+$/.test(age_intervals[j]);
@@ -180,11 +180,11 @@ module.exports = function(app, pg, conString) {
                     }
                 }
             }
-             // OK we're ready to plug our four pairs of interval values into 4 selects to be unioned.
+             // OK we're ready to plug our five pairs of interval values into 5 selects to be unioned.
              
              var unionString ='';
              
-             for(j=0; j < 8;j+=2) {
+             for(j=0; j < 10;j+=2) {
                  if(sqlValues[j]==='null' || sqlValues[j+1]==='null') {
                      // condition = one or both values is not an integer
                  unionString = unionString + 
@@ -193,7 +193,7 @@ module.exports = function(app, pg, conString) {
                     "where age between null and null " +
                     "group by county,year " ;
                 
-                 if (j < 6) {
+                 if (j < 8) {
                      unionString = unionString + " UNION ";
                     }
                  } else if(parseInt(sqlValues[j]) < parseInt(sqlValues[j+1])) {
@@ -205,7 +205,7 @@ module.exports = function(app, pg, conString) {
                     "group by county,year " ;              
                 
                 
-                if (j < 6) {
+                if (j < 8) {
                     unionString = unionString + " UNION ";
                     }
                 } else {
@@ -216,7 +216,7 @@ module.exports = function(app, pg, conString) {
                     "where age between null and null " +
                     "group by county,year " ;
                 
-                 if (j < 6) {
+                 if (j < 8) {
                      unionString = unionString + " UNION ";
                     }                   
                 }
