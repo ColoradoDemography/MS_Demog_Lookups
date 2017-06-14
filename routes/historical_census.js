@@ -82,7 +82,7 @@ module.exports = function(app, pg, conString) {
         //        res.send('one of your geography inputs is not valid!');
         //        return;
         //    }
-        //}
+        }
         
                 //validate type, if entered
         // if (req.query.type) {
