@@ -134,9 +134,9 @@ module.exports = function(app, pg, conString) {
                 sendtodatabase(sqlstring);
             } else if (req.query.compressed === "yes") {
                 basequery = "SELECT year,countyfips,";
-                for (j = 0; j < slist.length; j++) {
-                    statstring = statstring + "SUM(" + slist[j] + ") as " + slist[j] + ",";
-                }
+                //for (j = 0; j < slist.length; j++) {
+                //    statstring = statstring + "SUM(" + slist[j] + ") as " + slist[j] + ",";
+                //}
                 statstring = statstring.substring(0, statstring.length - 1);
                 sqlstring = basequery + statstring + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ') AND (estimates.county_muni_timeseries.placefips = 0) group by year,countyfips order by countyfips,year;';
                 console.log(sqlstring);
