@@ -167,7 +167,7 @@ module.exports = function(app, pg, conString) {
     app.get('/jobs_region', function(req, res) {
 
         //table name
-        var schtbl = "estimates.jobs_by_sector_reg";
+        var schtbl = "estimates.jobs_by_sector_region";
 
         //schema.table combination
         var basequery = "SELECT area_code,sector_id,sector_name,population_year,total_jobs from " + schtbl + " where ";
