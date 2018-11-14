@@ -17,9 +17,10 @@ group: (optional)   Default is no grouping
   opt2 = Group by County and Year
   
   opt3 = Group by Age and Year
-  
 
-https://gis.dola.colorado.gov/lookups/sya?age=15,16&county=1,3&year=1990,2025
+*Note - have to add choice=single to end now that we have custom age categories if you want to use the url
+
+https://gis.dola.colorado.gov/lookups/sya?age=15,16&county=1,3&year=1990,2025&choice=single
 
 output
 ```
