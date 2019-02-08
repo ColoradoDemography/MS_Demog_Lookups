@@ -6,7 +6,7 @@ NodeJS microservice for Colorado Demography County Demographic Profile Informati
 
 *county*: (comma separated integers)  Mandatory.
 
-*year*: (comma separated integers)  1985-2014. Mandatory.
+*year*: (comma separated integers)  1985-2017. Mandatory.
 
 *vars*: (comma separated)   Default is all.  Optional
 
@@ -22,6 +22,7 @@ NodeJS microservice for Colorado Demography County Demographic Profile Informati
   - totalhousingunits
   - vacancyrate
   - vacanthousingunits
+  - totalpopulation
 
 *group*: (optional)   Default is no grouping
 
