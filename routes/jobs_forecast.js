@@ -25,7 +25,7 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var schtbl = "estimates.jobs_forecast";
-        var basequery = "SELECT countyfips, population_year";
+        var basequery = "SELECT countyfips, population_year, datatype";
         // var statlist = "total_population"; 
 
 
@@ -181,7 +181,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select distinct population_year from estimates.jobs_forecast order by population_year asc;", function(err, result) {
+            client.query("select distinct population_year, datatype from estimates.jobs_forecast order by population_year asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
