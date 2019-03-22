@@ -409,7 +409,7 @@ console.log(sqlstring)
         var reg_num = (req.query.reg_num).split(",");
         var reg_numdomain = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
         if (!validate(reg_num, reg_numdomain)) {
-            res.send('one of your reg_num inputs is not valid!');
+            res.send('one of your region inputs is not valid!');
             return;
         }
 
@@ -456,108 +456,108 @@ console.log(sqlstring)
         //put it all together
         
         switch(categoryChoice) {
-        case "single":
-            sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
-            break;
-        
-        case "5yr": 
-            sqlstring = "SELECT reg_num,year,age_group as age,region,floor(malepopulation) as malepopulation,floor(femalepopulation) as femalepopulation,floor(totalpopulation) as totalpopulation, datatype from estimates.county_5ya_region ";
-            sqlstring = sqlstring + "WHERE " + "(" + reg_numstring + ") AND " + "(" + yearstring + ")";
-            sqlstring = sqlstring.replace(/estimates.county_sya_region./g,"");  // strip table reference *********************
-            sqlstring = sqlstring + " ORDER BY region,year,(left(age_group,2))::int;"
-            break;
-        
-        case "census": 
-            sqlstring = "SELECT reg_num,year,age_group as age,region,floor(malepopulation) as malepopulation,floor(femalepopulation) as femalepopulation,floor(totalpopulation) as totalpopulation, datatype from estimates.county_census_grouping_ya_region ";
-            sqlstring = sqlstring + "WHERE " + "(" + reg_numstring + ") AND " + "(" + yearstring + ")";
-            sqlstring = sqlstring.replace(/estimates.county_sya_region./g,"");  // strip table reference ********************
-            sqlstring = sqlstring + " ORDER BY region,year,(left(age_group,2))::int;"
-            break;  
+            case "single":
+                sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
+                break;
+
+            case "5yr": 
+                sqlstring = "SELECT reg_num,year,age_group as age,region,floor(malepopulation) as malepopulation,floor(femalepopulation) as femalepopulation,floor(totalpopulation) as totalpopulation, datatype from estimates.county_5ya_region ";
+                sqlstring = sqlstring + "WHERE " + "(" + reg_numstring + ") AND " + "(" + yearstring + ")";
+                sqlstring = sqlstring.replace(/estimates.county_sya_region./g,"");  // strip table reference *********************
+                sqlstring = sqlstring + " ORDER BY region,year,(left(age_group,2))::int;"
+                break;
+
+            case "census": 
+                sqlstring = "SELECT reg_num,year,age_group as age,region,floor(malepopulation) as malepopulation,floor(femalepopulation) as femalepopulation,floor(totalpopulation) as totalpopulation, datatype from estimates.county_census_grouping_ya_region ";
+                sqlstring = sqlstring + "WHERE " + "(" + reg_numstring + ") AND " + "(" + yearstring + ")";
+                sqlstring = sqlstring.replace(/estimates.county_sya_region./g,"");  // strip table reference ********************
+                sqlstring = sqlstring + " ORDER BY region,year,(left(age_group,2))::int;"
+                break;  
                 
-         case "custom":
-            // this is a complicated UNION query so we will take it step by step
-            
-            // step 1 - get the incoming custom intervals and put them in an array, figure out if null
-            var age_intervals = (req.query.intervals).split(",");
-            
-           
-            var isInt  // for testing integers
-            var sqlValues = []; // array of values ot plug into SQL
-            
-            // here is where we determine if the incoming values are integers or nulls
-            for (j = 0; j < age_intervals.length; j++) {
-                if(typeof age_intervals[j] === 'string') {
-                    isInt = /^\+?\d+$/.test(age_intervals[j]);
-                    if (isInt) {
-                        sqlValues.push(age_intervals[j].trim());
+            case "custom":
+                // this is a complicated UNION query so we will take it step by step
+
+                // step 1 - get the incoming custom intervals and put them in an array, figure out if null
+                var age_intervals = (req.query.intervals).split(",");
+
+
+                var isInt  // for testing integers
+                var sqlValues = []; // array of values ot plug into SQL
+
+                // here is where we determine if the incoming values are integers or nulls
+                for (j = 0; j < age_intervals.length; j++) {
+                    if(typeof age_intervals[j] === 'string') {
+                        isInt = /^\+?\d+$/.test(age_intervals[j]);
+                        if (isInt) {
+                            sqlValues.push(age_intervals[j].trim());
+                        } else {
+                            sqlValues.push('null');
+                        }
+                    }
+                }
+                 // OK we're ready to plug our five pairs of interval values into 5 selects to be unioned.
+
+                 var unionString ='';
+
+                 for(j=0; j < 10;j+=2) {
+                     if(sqlValues[j]==='null' || sqlValues[j+1]==='null') {
+                         // condition = one or both values is not an integer
+                     unionString = unionString + 
+                        "select max(reg_num) as maxfips ,max(datatype) as maxdatatype,max('0') as age_label,year,region,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
+                        "from region_year_filter " +
+                        "where age between null and null " +
+                        "group by region,year " ;
+
+                     if (j < 8) {
+                         unionString = unionString + " UNION ";
+                        }
+                     } else if(parseInt(sqlValues[j]) < parseInt(sqlValues[j+1])) {
+                        // condition = both values are integers and the first is less than the second
+                     unionString = unionString + 
+                        "select max(reg_num) as maxfips ,max(datatype) as maxdatatype,max('" + sqlValues[j] + " to " + sqlValues[j+1] + "') as age_label,year,region,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
+                        "from region_year_filter " +
+                        "where age between " + sqlValues[j] + " and " + sqlValues[j+1] + " " +
+                        "group by region,year " ;              
+
+
+                    if (j < 8) {
+                        unionString = unionString + " UNION ";
+                        }
                     } else {
-                        sqlValues.push('null');
+                    // condition is two integers but first is greater than second
+                      unionString = unionString + 
+                        "select max(reg_num) as maxfips ,max(datatype) as maxdatatype,max('0') as age_label,year,region,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
+                        "from region_year_filter " +
+                        "where age between null and null " +
+                        "group by region,year " ;
+
+                     if (j < 8) {
+                         unionString = unionString + " UNION ";
+                        }                   
                     }
-                }
-            }
-             // OK we're ready to plug our five pairs of interval values into 5 selects to be unioned.
-             
-             var unionString ='';
-             
-             for(j=0; j < 10;j+=2) {
-                 if(sqlValues[j]==='null' || sqlValues[j+1]==='null') {
-                     // condition = one or both values is not an integer
-                 unionString = unionString + 
-                    "select max(reg_num) as maxfips ,max(datatype) as maxdatatype,max('0') as age_label,year,region,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
-                    "from region_year_filter " +
-                    "where age between null and null " +
-                    "group by region,year " ;
-                
-                 if (j < 8) {
-                     unionString = unionString + " UNION ";
-                    }
-                 } else if(parseInt(sqlValues[j]) < parseInt(sqlValues[j+1])) {
-                    // condition = both values are integers and the first is less than the second
-                 unionString = unionString + 
-                    "select max(reg_num) as maxfips ,max(datatype) as maxdatatype,max('" + sqlValues[j] + " to " + sqlValues[j+1] + "') as age_label,year,region,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
-                    "from region_year_filter " +
-                    "where age between " + sqlValues[j] + " and " + sqlValues[j+1] + " " +
-                    "group by region,year " ;              
-                
-                
-                if (j < 8) {
-                    unionString = unionString + " UNION ";
-                    }
-                } else {
-                // condition is two integers but first is greater than second
-                  unionString = unionString + 
-                    "select max(reg_num) as maxfips ,max(datatype) as maxdatatype,max('0') as age_label,year,region,floor(sum(malepopulation)) as male_pop,floor(sum(femalepopulation)) as fem_pop,floor(sum(totalpopulation)) as tot_pop " +
-                    "from region_year_filter " +
-                    "where age between null and null " +
-                    "group by region,year " ;
-                
-                 if (j < 8) {
-                     unionString = unionString + " UNION ";
-                    }                   
-                }
-                     
-                 
-             }
-             
-            // OK, we have our UNION criteria, let's set up our county, year criteria
- 
-            sqlstring = "WITH region_year_filter AS ";
-            sqlstring = sqlstring + " (SELECT * from estimates.county_sya_region ";
-            sqlstring = sqlstring + "WHERE " + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ) ";
- 
-            // add beginning SELECT statement
-            sqlstring = "SELECT maxfips as reg_num,year,age_label as age,region,male_pop as malepopulation,fem_pop as femalepopulation,tot_pop as totalpopulation,maxdatatype as datatype FROM (" + sqlstring;
-            
-            // add final stuff, ordering
-            sqlstring = sqlstring + " " + unionString + " ) as mainsub order by region,year,left(age_label,2)::int ;";
-            
-            break;
+
+
+                 }
+
+                // OK, we have our UNION criteria, let's set up our county, year criteria
+
+                sqlstring = "WITH region_year_filter AS ";
+                sqlstring = sqlstring + " (SELECT * from estimates.county_sya_region ";
+                sqlstring = sqlstring + "WHERE " + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ) ";
+
+                // add beginning SELECT statement
+                sqlstring = "SELECT maxfips as reg_num,year,age_label as age,region,male_pop as malepopulation,fem_pop as femalepopulation,tot_pop as totalpopulation,maxdatatype as datatype FROM (" + sqlstring;
+
+                // add final stuff, ordering
+                sqlstring = sqlstring + " " + unionString + " ) as mainsub order by region,year,left(age_label,2)::int ;";
+
+                break;
         }
                 
                 
                 
                 
-        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
+        //sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ")" + groupby + ";";
 
         //console.log(sqlstring);
 
