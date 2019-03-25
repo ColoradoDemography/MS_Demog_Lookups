@@ -213,6 +213,26 @@ module.exports = function(app, pg, conString) {
         //opt1: year
         //opt2: reg_num
         
+        var i, j, k; //iterators
+
+        function validate(data, check) {
+            var valid;
+
+            for (var i = 0; i < data.length; i++) {
+                valid = false;
+                for (var j = 0; j < check.length; j++) {
+                    if (data[i] === check[j]) {
+                        valid = true;
+                    }
+                }
+                if (!valid) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
         if (req.query.group) {
 
             var statarray = [];
