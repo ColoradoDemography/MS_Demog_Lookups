@@ -174,7 +174,7 @@ module.exports = function(app, pg, conString) {
         });
     });
     
-        app.get('/jobsforecastYRS', function(req, res) {
+    app.get('/jobsforecastYRS', function(req, res) {
 
         var client = new pg.Client(conString);
         client.connect(function(err) {
@@ -194,6 +194,9 @@ module.exports = function(app, pg, conString) {
             });
         });
     });
-
+    
+    app.get('/jobsforecast_region', function(req, res) {
+        
+    });
 
 }
