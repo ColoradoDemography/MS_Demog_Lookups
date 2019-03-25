@@ -257,7 +257,7 @@ module.exports = function(app, pg, conString) {
         }
 
         //exit if no year
-        if (!req.query.population_year) {
+        if (!req.query.year) {
             res.send('please specify a year (or comma separated list of years)');
             return;
         }
