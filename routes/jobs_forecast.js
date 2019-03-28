@@ -112,7 +112,7 @@ module.exports = function(app, pg, conString) {
 
         //full sql string selector
 
-            sqlstring = basequery + ', totaljobs ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ');';
+            sqlstring = basequery + ', totaljobs ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ') ORDER by countyfips;';
             sendtodatabase(sqlstring);
             
             console.log(sqlstring)
@@ -205,13 +205,6 @@ module.exports = function(app, pg, conString) {
         
                 //schema.table combination
         var basequery = "SELECT reg_num,population_year,totaljobs,datatype from " + schtbl + " WHERE ";
-        var groupby = "";
-
-
-        //GROUP BY
-        //opt0: = none or all = base query
-        //opt1: year
-        //opt2: reg_num
         
         var i, j, k; //iterators
 
@@ -247,17 +240,6 @@ module.exports = function(app, pg, conString) {
             }
             statstring = statstring.slice(0, -2);
             statlist = statlist.slice(0, -2);
-
-            //opt1: year
-            if (req.query.group === "opt1") {
-                basequery = "SELECT year, SUM(totaljobs) as totaljobs, " + statstring + " from " + schtbl + " WHERE ";
-                groupby = " GROUP BY population_year ORDER BY population_year ";
-            }
-            //opt2: reg_num
-            if (req.query.group === "opt2") {
-                basequery = "SELECT reg_num, " + statstring + " from " + schtbl + " WHERE ";
-                groupby = " GROUP BY reg_num ORDER BY reg_num ";
-            }
 
         }
         
@@ -314,7 +296,7 @@ module.exports = function(app, pg, conString) {
         yearstring = yearstring.substring(0, yearstring.length - 3);
 
         //put it all together
-        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") " + groupby + ";";
+        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ORDER by countyfips;";
 
         console.log(sqlstring);
 
