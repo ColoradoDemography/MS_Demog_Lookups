@@ -206,7 +206,7 @@ module.exports = function(app, pg, conString) {
                 //schema.table combination
         var basequery = "SELECT reg_num,population_year,totaljobs,datatype from " + schtbl + " WHERE ";
         
-        var i, j, k; //iterators
+        var i, j; //iterators
 
         function validate(data, check) {
             var valid;
@@ -224,23 +224,6 @@ module.exports = function(app, pg, conString) {
             }
 
             return true;
-        }
-        
-        if (req.query.group) {
-
-            var statarray = [];
-
-            //break down statarray into sumlist
-            var statstring = "";
-            var statlist = "";
-
-            for (var k = 0; k < statarray.length; k++) {
-                statstring = statstring + "SUM(" + statarray[k] + ") as " + statarray[k] + ", ";
-                statlist = statlist + statarray[k] + ", ";
-            }
-            statstring = statstring.slice(0, -2);
-            statlist = statlist.slice(0, -2);
-
         }
         
         var yearstring = "";
