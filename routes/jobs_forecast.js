@@ -245,12 +245,7 @@ module.exports = function(app, pg, conString) {
         
         var yearstring = "";
         var reg_numstring = "";
-
-
         var sqlstring;
-
-        var i, j; //iterators
-
 
         //exit if no reg_num
         if (!req.query.reg_num) {
