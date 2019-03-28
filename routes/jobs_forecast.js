@@ -274,7 +274,7 @@ module.exports = function(app, pg, conString) {
 
         console.log(sqlstring);
 
-        sendtodatabase(sqlstring, pg, conString, res);
+        sendtodatabase(sqlstring);
         
         function sendtodatabase(sqlstring) {
 
