@@ -195,10 +195,6 @@ module.exports = function(app, pg, conString) {
         });
     });
     
-    app.get('/jobforecast_region', function(req, res) {
-        sendtodatabase("select distinct reg_num from estimates.jobs_forecast_region order by reg_num asc;", pg, conString, res);
-    });
-    
     app.get('/jobsforecast_region', function(req, res) {
         //table name
         var schtbl = "estimates.jobs_forecast_region";
