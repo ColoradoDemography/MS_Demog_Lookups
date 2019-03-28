@@ -270,7 +270,7 @@ module.exports = function(app, pg, conString) {
         yearstring = yearstring.substring(0, yearstring.length - 3);
 
         //put it all together
-        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ORDER by countyfips;";
+        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ORDER by reg_num;";
 
         console.log(sqlstring);
 
