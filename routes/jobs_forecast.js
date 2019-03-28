@@ -302,6 +302,35 @@ module.exports = function(app, pg, conString) {
 
         sendtodatabase(sqlstring, pg, conString, res);
         
+        function sendtodatabase(sqlstring) {
+
+            var client = new pg.Client(conString);
+
+            client.connect(function(err) {
+
+                if (err) {
+                    return console.error('could not connect to postgres', err);
+                }
+
+                client.query(sqlstring, function(err, result) {
+
+                    if (err) {
+                        return console.error('error running query', err);
+                    }
+
+                    res.set({
+                        "Content-Type": "application/json"
+                    });
+                    // res.send(JSON.stringify(result.rows));
+                res.send(JSON.parse(JSON.stringify(result.rows).replace(/"\s+|\s+"/g,'"')));
+
+
+                    client.end();
+
+                });
+            });
+        }
+        
     });
 
 }
