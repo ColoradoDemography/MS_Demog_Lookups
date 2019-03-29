@@ -112,7 +112,7 @@ module.exports = function(app, pg, conString) {
 
         //full sql string selector
 
-            sqlstring = basequery + ', totaljobs ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ') ORDER by countyfips;';
+            sqlstring = basequery + ', totaljobs ' + ' FROM ' + schtbl + ' WHERE (' + yearstring + ') AND (' + countystring + ') ORDER by countyfips,population_year;';
             sendtodatabase(sqlstring);
             
             console.log(sqlstring)
@@ -270,7 +270,7 @@ module.exports = function(app, pg, conString) {
         yearstring = yearstring.substring(0, yearstring.length - 3);
 
         //put it all together
-        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ORDER by reg_num;";
+        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") ORDER by reg_num,population_year;";
 
         console.log(sqlstring);
 
