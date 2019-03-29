@@ -105,7 +105,7 @@ module.exports = function(app, pg, conString) {
 
 
         //put it all together
-        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id;";
+        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id::int;";
 
         console.log(sqlstring);
 
@@ -268,7 +268,7 @@ module.exports = function(app, pg, conString) {
 
 
         //put it all together
-        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id;";
+        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id::int;";
 
         console.log(sqlstring);
 
