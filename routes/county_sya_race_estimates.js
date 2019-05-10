@@ -31,8 +31,8 @@ module.exports = function(app, pg, conString) {
 
 
         //schema.table combination
-        var basequery = "SELECT " + gender + "county_fips,year,age,race,SUM(count) as count from " + schtbl + " WHERE ";
-        var groupby = " GROUP BY " + gender + "county_fips,year,age,race ORDER BY county_fips,year,age,race";
+        var basequery = "SELECT " + gender + "county_fips,year,age,race,ethnicity,SUM(count) as count from " + schtbl + " WHERE ";
+        var groupby = " GROUP BY " + gender + "county_fips,year,age,race,ethnicity ORDER BY county_fips,year,age,race,ethnicity";
 
 
         //GROUP BY
@@ -133,6 +133,7 @@ module.exports = function(app, pg, conString) {
         var countystring = "";
         var agestring = "";
         var racestring = "";
+        var ethnicitystring = "";
 
         var sqlstring;
 
@@ -160,6 +161,12 @@ module.exports = function(app, pg, conString) {
         //exit if no age
         if (!req.query.race) {
             res.send('please specify a single race (or comma separated list of races - or "all")');
+            return;
+        }
+        
+        //exit if no age
+        if (!req.query.ethnicity) {
+            res.send('please specify a single ethnicity (or comma separated list of races - or "all")');
             return;
         }
 
@@ -273,9 +280,31 @@ module.exports = function(app, pg, conString) {
 
         // 1: Hispanic, 2: White non Hispanic, 3: Asian non Hispanic, 4: American Indian non Hispanic, 5: Black non Hispanic, 6: Total
 
+        
+        //create array of ethnicities
+        var ethnicity = (req.query.ethnicity).split(",");
+        var ethnicitydomain = ["1", "2"];
+        if (!validate(ethnicity, ethnicitydomain)) {
+            res.send('one of your ethnicity inputs is not valid!');
+            return;
+        }
+
+        //create sql selector for ethnicity
+        for (j = 0; j < ethnicity.length; j++) {
+            if (ethnicity[j] === "1") {
+                ethnicity[j] = "'Hispanic Origin'";
+            }
+            if (ethnicity[j] === "1") {
+                ethnicity[j] = "'Not of Hispanic Origin'";
+            }
+            ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
+        }
+        //remove stray OR from end of sql selector
+        ethnicitystring = ethnicitystring.substring(0, ethnicitystring.length - 3);
+        
 
         //put it all together
-        sqlstring = basequery + "(" + genderstring + ") AND " + "(" + countystring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ") AND " + "(" + racestring + ")" + groupby + ";";
+        sqlstring = basequery + "(" + genderstring + ") AND " + "(" + countystring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ") AND " + "(" + racestring + ") AND " + "(" + ethnicitystring + ")" + groupby + ";";
 
         console.log(sqlstring);
 
@@ -320,7 +349,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select year from estimates.county_sya_race_estimates where county_fips=1 and age=0 and sex='M' and race='Hispanic' order by year asc;", function(err, result) {
+            client.query("select year from estimates.county_sya_race_estimates where county_fips=1 and age=0 and sex='M' and race='White' and ethnicity='Hispanic Origin' order by year asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
@@ -341,7 +370,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select age from estimates.county_sya_race_estimates where county_fips=1 and year=2011 and sex='M' and race='Hispanic' order by age asc;", function(err, result) {
+            client.query("select age from estimates.county_sya_race_estimates where county_fips=1 and year=2011 and sex='M' and race='White' and ethnicity='Hispanic Origin' order by age asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
@@ -385,8 +414,8 @@ module.exports = function(app, pg, conString) {
 
 
         //schema.table combination
-        var basequery = "SELECT " + gender + "reg_num,year,age,race,SUM(count) as count from " + schtbl + " WHERE ";
-        var groupby = " GROUP BY " + gender + "reg_num,year,age,race ORDER BY reg_num,year,age,race";
+        var basequery = "SELECT " + gender + "reg_num,year,age,race,ethnicity,SUM(count) as count from " + schtbl + " WHERE ";
+        var groupby = " GROUP BY " + gender + "reg_num,year,age,race ORDER BY reg_num,year,age,race,ethnicity";
 
 
         //GROUP BY
@@ -487,6 +516,7 @@ module.exports = function(app, pg, conString) {
         var reg_numstring = "";
         var agestring = "";
         var racestring = "";
+        var ethnicitystring = "";
 
         var sqlstring;
 
@@ -511,9 +541,15 @@ module.exports = function(app, pg, conString) {
             return;
         }
 
-        //exit if no age
+        //exit if no race
         if (!req.query.race) {
             res.send('please specify a single race (or comma separated list of races - or "all")');
+            return;
+        }
+        
+         //exit if no ethnicity
+        if (!req.query.ethnicity) {
+            res.send('please specify a single ethnicity (or comma separated list of races - or "all")');
             return;
         }
 
@@ -624,12 +660,33 @@ module.exports = function(app, pg, conString) {
         }
         //remove stray OR from end of sql selector
         racestring = racestring.substring(0, racestring.length - 3);
+        
+        //create array of ethnicities
+        var ethnicity = (req.query.ethnicity).split(",");
+        var ethnicitydomain = ["1", "2"];
+        if (!validate(ethnicity, ethnicitydomain)) {
+            res.send('one of your ethnicity inputs is not valid!');
+            return;
+        }
+
+        //create sql selector for ethnicity
+        for (j = 0; j < ethnicity.length; j++) {
+            if (ethnicity[j] === "1") {
+                ethnicity[j] = "'Hispanic Origin'";
+            }
+            if (ethnicity[j] === "1") {
+                ethnicity[j] = "'Not of Hispanic Origin'";
+            }
+            ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
+        }
+        //remove stray OR from end of sql selector
+        ethnicitystring = ethnicitystring.substring(0, ethnicitystring.length - 3);
 
         // 1: Hispanic, 2: White non Hispanic, 3: Asian non Hispanic, 4: American Indian non Hispanic, 5: Black non Hispanic, 6: Total
 
 
         //put it all together
-        sqlstring = basequery + "(" + genderstring + ") AND " + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ") AND " + "(" + racestring + ")" + groupby + ";";
+        sqlstring = basequery + "(" + genderstring + ") AND " + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND " + "(" + agestring + ") AND " + "(" + racestring + ") AND " + "(" + ethnicitystring + ")" + groupby + ";";
 
         console.log(sqlstring);
 
