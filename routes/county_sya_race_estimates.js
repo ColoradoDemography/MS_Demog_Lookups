@@ -208,7 +208,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of years
         var year = (req.query.year).split(",");
-        var yeardomain = ["2011", "2012", "2013", "2014", "2015", "2016", "2017"];
+        var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"];
         if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
             return;
@@ -240,7 +240,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of races
         var race = (req.query.race).split(",");
-        var racedomain = ["1", "2", "3", "4", "5", "6"];
+        var racedomain = ["1", "2", "3", "4"];
         if (!validate(race, racedomain)) {
             res.send('one of your race inputs is not valid!');
             return;
@@ -248,24 +248,24 @@ module.exports = function(app, pg, conString) {
 
         //create sql selector for races
         for (j = 0; j < race.length; j++) {
+            //if (race[j] === "1") {
+                //race[j] = "'Hispanic'";
+            //}
             if (race[j] === "1") {
-                race[j] = "'Hispanic'";
+                race[j] = "'White'";
             }
             if (race[j] === "2") {
-                race[j] = "'White non Hispanic'";
+                race[j] = "'Asian/Pacific Islander'";
             }
             if (race[j] === "3") {
-                race[j] = "'Asian non Hispanic'";
+                race[j] = "'American Indian'";
             }
             if (race[j] === "4") {
-                race[j] = "'American Indian non Hispanic'";
+                race[j] = "'Black'";
             }
-            if (race[j] === "5") {
-                race[j] = "'Black non Hispanic'";
-            }
-            if (race[j] === "6") {
-                race[j] = "'Total'";
-            }
+            //if (race[j] === "6") {
+                //race[j] = "'Total'";
+            //}
             racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
         }
         //remove stray OR from end of sql selector
@@ -562,7 +562,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of years
         var year = (req.query.year).split(",");
-        var yeardomain = ["2011", "2012", "2013", "2014", "2015", "2016", "2017"];
+        var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017"];
         if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
             return;
@@ -594,7 +594,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of races
         var race = (req.query.race).split(",");
-        var racedomain = ["1", "2", "3", "4", "5", "6"];
+        var racedomain = ["1", "2", "3", "4"];
         if (!validate(race, racedomain)) {
             res.send('one of your race inputs is not valid!');
             return;
@@ -602,24 +602,24 @@ module.exports = function(app, pg, conString) {
 
         //create sql selector for races
         for (j = 0; j < race.length; j++) {
+            //if (race[j] === "1") {
+                //race[j] = "'Hispanic'";
+            //}
             if (race[j] === "1") {
-                race[j] = "'Hispanic'";
+                race[j] = "'White'";
             }
             if (race[j] === "2") {
-                race[j] = "'White non Hispanic'";
+                race[j] = "'Asian/Pacific Islander'";
             }
             if (race[j] === "3") {
-                race[j] = "'Asian non Hispanic'";
+                race[j] = "'American Indian'";
             }
             if (race[j] === "4") {
-                race[j] = "'American Indian non Hispanic'";
+                race[j] = "'Black'";
             }
-            if (race[j] === "5") {
-                race[j] = "'Black non Hispanic'";
-            }
-            if (race[j] === "6") {
-                race[j] = "'Total'";
-            }
+            //if (race[j] === "6") {
+                //race[j] = "'Total'";
+            //}
             racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
         }
         //remove stray OR from end of sql selector
