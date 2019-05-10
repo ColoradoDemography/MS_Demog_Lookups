@@ -294,7 +294,7 @@ module.exports = function(app, pg, conString) {
             if (ethnicity[j] === "1") {
                 ethnicity[j] = "'Hispanic Origin'";
             }
-            if (ethnicity[j] === "1") {
+            if (ethnicity[j] === "2") {
                 ethnicity[j] = "'Not of Hispanic Origin'";
             }
             ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
@@ -674,7 +674,7 @@ module.exports = function(app, pg, conString) {
             if (ethnicity[j] === "1") {
                 ethnicity[j] = "'Hispanic Origin'";
             }
-            if (ethnicity[j] === "1") {
+            if (ethnicity[j] === "2") {
                 ethnicity[j] = "'Not of Hispanic Origin'";
             }
             ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
