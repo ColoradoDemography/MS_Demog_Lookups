@@ -126,6 +126,82 @@ module.exports = function(app, pg, conString) {
                 basequery = "SELECT " + gender + "county_fips, age, race, SUM(count) as count from " + schtbl + " WHERE ";
                 groupby = "GROUP BY " + gender + "county_fips, age, race ORDER BY " + gender + "county_fips, age, race";
             }
+            //opt4: ethnicity
+            if (req.query.group === "opt15") {
+                basequery = "SELECT " + gender + "ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "ethnicity ORDER BY " + gender + "ethnicity";
+            }
+            
+            //opt4: race
+            if (req.query.group === "opt16") {
+                basequery = "SELECT " + gender + "year, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, ethnicity ORDER BY " + gender + "year, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt17") {
+                basequery = "SELECT " + gender + "county_fips, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "county_fips, ethnicity ORDER BY " + gender + "county_fips, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt18") {
+                basequery = "SELECT " + gender + "age, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "age, ethnicity ORDER BY " + gender + "age, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt19") {
+                basequery = "SELECT " + gender + "race, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "race, ethnicity ORDER BY " + gender + "race, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt20") {
+                basequery = "SELECT " + gender + "year, county_fips, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, county_fips, ethnicity ORDER BY " + gender + "year, county_fips, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt21") {
+                basequery = "SELECT " + gender + "year, age, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, age, ethnicity ORDER BY " + gender + "year, age, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt22") {
+                basequery = "SELECT " + gender + "year, race, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, race, ethnicity ORDER BY " + gender + "year, race, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt23") {
+                basequery = "SELECT " + gender + "county_fips, age, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "county_fips, age, ethnicity ORDER BY " + gender + "county_fips, age, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt24") {
+                basequery = "SELECT " + gender + "county_fips, race, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "county_fips, race, ethnicity ORDER BY " + gender + "county_fips, race, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt25") {
+                basequery = "SELECT " + gender + "age, race, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "age, race, ethnicity ORDER BY " + gender + "age, race, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt26") {
+                basequery = "SELECT " + gender + "year, county_fips, age, race, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, county_fips, age, race ORDER BY " + gender + "year, county_fips, age, race";
+            }
+            //opt4: race
+            if (req.query.group === "opt27") {
+                basequery = "SELECT " + gender + "year, age, race, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, age, race, ethnicity ORDER BY " + gender + "year, age, race, ethnicity";
+            }
+            //opt4: race
+            if (req.query.group === "opt28") {
+                basequery = "SELECT " + gender + "year, county_fips, race, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, county_fips, race, ethnicity ORDER BY " + gender + "year, county_fips, race, ethnicity"
+            }
+            //opt4: race
+            if (req.query.group === "opt28") {
+                basequery = "SELECT " + gender + "year, county_fips, age, ethnicity, SUM(count) as count from " + schtbl + " WHERE ";
+                groupby = "GROUP BY " + gender + "year, county_fips, age, ethnicity ORDER BY " + gender + "year, county_fips, age, ethnicity"
+            }
 
         }
 
