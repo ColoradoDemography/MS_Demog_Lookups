@@ -491,7 +491,7 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var basequery = "SELECT " + gender + "reg_num,year,age,race,ethnicity,SUM(count) as count from " + schtbl + " WHERE ";
-        var groupby = " GROUP BY " + gender + "reg_num,year,age,race ORDER BY reg_num,year,age,race,ethnicity";
+        var groupby = " GROUP BY " + gender + "reg_num,year,age,race,ethnicity ORDER BY reg_num,year,age,race,ethnicity";
 
 
         //GROUP BY
