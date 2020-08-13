@@ -59,7 +59,7 @@ module.exports = function(app, pg, conString) {
         if (!req.query.year) {
             res.send('please specify a year (or comma separated list of years)');
         } else {
-            yeardomain = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018"];
+            yeardomain = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019"];
             //create array of years
             year = (req.query.year).split(",");
             //validate year input
