@@ -25,7 +25,7 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var schtbl = "data.average_wage";
-        var basequery = "SELECT area_code, population_year, sector_id, Avg_wage, category";
+        var basequery = "SELECT area_code, population_year, sector_id, avg_wage, category";
         // var statlist = "total_population"; 
 
 
