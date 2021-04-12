@@ -14,6 +14,7 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 require('./routes/base_analysis.js')(app, pg, conString);
+require('./routes/bea_jobs.js')(app, pg, conString);
 require('./routes/components_change.js')(app, pg, conString);
 require('./routes/county_profiles.js')(app, pg, conString);
 require('./routes/county_race_by_age_forecast.js')(app, pg, conString);
