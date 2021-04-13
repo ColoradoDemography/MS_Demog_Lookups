@@ -52,7 +52,8 @@ module.exports = function(app, pg, conString) {
 
                 //put it all together
         sqlstring = basequery + countystring + ";"
-        
+        console.log(countystring);
+        console.log(sqlstring);
         sendtodatabase(sqlstring, pg, conString, res);
     });
 
