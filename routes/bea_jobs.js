@@ -45,7 +45,7 @@ module.exports = function(app, pg, conString) {
 
         //create sql selector for years
         for (j = 0; j < county.length; j++) {
-            countystring = countystring + schtbl + ".countyfips = " + county[j] + " OR ";
+            countystring = countystring + schtbl + ".fips = " + county[j] + " OR ";
         }
         //remove stray OR from end of sql selector
         countystring = countystring.substring(0, countystring.length - 3);
