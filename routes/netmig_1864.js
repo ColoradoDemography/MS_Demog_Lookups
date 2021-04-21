@@ -5,7 +5,7 @@ var sendtodatabase = require("../modules/common_functions.js").sendtodatabase;
 module.exports = function(app, pg, conString) {
 
 
-    app.get('/components', function(req, res) {
+    app.get('/netmig', function(req, res) {
 
         //table name
         var schtbl = "estimates.netMigration_1864";
