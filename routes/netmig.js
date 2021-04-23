@@ -8,7 +8,7 @@ module.exports = function(app, pg, conString) {
     app.get('/netmig', function(req, res) {
 
         //table name
-        var schtbl = "estimates.netMigration_1864";
+        var schtbl = "estimates.net_migration";
 
 
         //schema.table combination
