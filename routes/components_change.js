@@ -127,12 +127,12 @@ module.exports = function(app, pg, conString) {
 
     //endpoint to gather valid counties
     app.get('/component_county', function(req, res) {
-        sendtodatabase("select distinct fips from estimates.base_analysis order by fips asc;", pg, conString, res);
+        sendtodatabase("select distinct fips from estimates.components_change order by fips asc;", pg, conString, res);
     });
 
     //endpoint to gather valid regions
     app.get('/component_region', function(req, res) {
-        sendtodatabase("select distinct reg_num from estimates.base_analysis_region order by reg_num asc;", pg, conString, res);
+        sendtodatabase("select distinct reg_num from estimates.components_change_region order by reg_num asc;", pg, conString, res);
     });
 
 
