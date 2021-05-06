@@ -8,6 +8,11 @@ NodeJS microservice to deliver Colorado State Demography Office Components of Ch
 
 *year*: (comma separated integers)  1970-2050. Mandatory.
 
+*group*: (optional)   Default is no grouping
+
+  - opt1 = Group by Year
+  - opt2 = Group by County
+
   
 https://gis.dola.colorado.gov/lookups/components?county=1&year=2010,2011,2012
 
