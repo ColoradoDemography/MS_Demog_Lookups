@@ -10,7 +10,7 @@ county: (comma separated integers)  Mandatory.
 
 year: (comma separated integers)  Mandatory.
 
-      2011-2014
+      2011-2019
 
 age: (comma separated integers)  0-90. Mandatory.
 
@@ -18,12 +18,14 @@ age: (comma separated integers)  0-90. Mandatory.
 
 race: (comma separated integers)  Mandatory.
   
+      1: White
+      2: Asian
+      3: American Indian
+      4: Black
+      
+ethnicity: Mandatory.
       1: Hispanic
-      2: White non Hispanic
-      3: Asian non Hispanic
-      4: American Indian non Hispanic
-      5: Black non Hispanic
-      6: Total
+      2: Non Hispanic
 
 group: (optional)   Default is no grouping
 
@@ -49,10 +51,9 @@ sex: (optional)   Default is sum of male and female
       b or B: both genders listed (rather than summed)
   
 Example:
-https://gis.dola.colorado.gov/lookups/sya-race-estimates?age=0&county=1&year=2012&race=6&sex=b
+https://gis.dola.colorado.gov/lookups/sya-race-estimates?age=0&county=1&year=2012&race=1&ethnicity=1&sex=b
 
 output
 ```
-[{"sex":"M","county_fips":1,"year":2012,"age":0,"race":"Total","count":"3571.36"},
-{"sex":"F","county_fips":1,"year":2012,"age":0,"race":"Total","count":"3429.61"}]
+[{"sex":"M","county_fips":1,"year":2012,"age":0,"race":"White","ethnicity":"Hispanic Origin","count":"1564"},{"sex":"F","county_fips":1,"year":2012,"age":0,"race":"White","ethnicity":"Hispanic Origin","count":"1489"}]
 ```
