@@ -20,3 +20,9 @@ https://gis.dola.colorado.gov/lookups/base-analysis?county=3
 
 For all data:
 https://gis.dola.colorado.gov/lookups/base-analysis?all=yes
+
+List of counties:
+https://gis.dola.colorado.gov/lookups/base-analysis_county
+
+List of regions:
+https://gis.dola.colorado.gov/lookups/base-analysis_region
