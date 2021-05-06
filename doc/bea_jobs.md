@@ -1,6 +1,9 @@
 Pulls data from the bea_jobs database.
 
-Only variable is county, statewide = 0.
+**Parameters**
+
+*county*: (comma separated integers)  Mandatory.
+Statewide = 0
 
 https://gis.dola.colorado.gov/lookups/bea_jobs?county=0
 
