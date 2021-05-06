@@ -50,4 +50,5 @@ Denver Boulder Metro Area = 21
 Denver Boulder Greeley CMSA = 22
 10 County Denver Metro = 23
 
-
+To get a list of regions:
+https://gis.dola.colorado.gov/lookups/component_region
