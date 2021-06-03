@@ -8,11 +8,11 @@ module.exports = function(app, pg, conString) {
     app.get('/netmig', function(req, res) {
 
         //table name
-        var schtbl = "estimates.net_migration";
+        var schtbl = "estimates.netmigration_1864";
 
 
         //schema.table combination
-        var basequery = "SELECT fips,county,year,netmigration_tot,netmigration_1864 from " + schtbl;
+        var basequery = "SELECT fips,county,year,netmigration_tot,netmigration_1864 from " + schtbl + " WHERE ";
         
 
 
