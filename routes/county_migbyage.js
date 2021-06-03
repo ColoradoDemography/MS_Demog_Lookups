@@ -14,7 +14,7 @@ module.exports = function(app, pg, conString) {
     //    sendtodatabase("select * from estimates.bea_jobs order by fips asc;", pg, conString, res);
     //});
     
-    app.get('/bea_jobs', function(req, res) {
+    app.get('/migbyage', function(req, res) {
         
         //table name
         var schtbl = "estimates.county_migbyage_sya";
@@ -58,7 +58,7 @@ module.exports = function(app, pg, conString) {
     });
 
     //endpoint to gather valid counties
-    app.get('/migbyage', function(req, res) {
+    app.get('/migbyage_county', function(req, res) {
         sendtodatabase("select distinct fips from estimates.county_migbyage order by fips asc;", pg, conString, res);
     });
 
