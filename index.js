@@ -28,7 +28,7 @@ require('./routes/county_muni_timeseries.js')(app, pg, conString);
 require('./routes/historical_census.js')(app, pg, conString);
 require('./routes/jobs_forecast.js')(app, pg, conString);
 require('./routes/wage_data.js')(app, pg, conString);
-//require('./routes/county_migbyage.js')(app, pg, conString);
+require('./routes/county_migbyage.js')(app, pg, conString);
 //require('./routes/netmig.js')(app, pg, conString);
 
 
