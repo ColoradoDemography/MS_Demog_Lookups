@@ -24,4 +24,4 @@ jobs:
       run: docker build . --file Dockerfile --tag codemog:ms_demog_lookups$(date +%s)
       
     - name: Docker Push
-      run: docker push codemog/ms_demog_lookups:latest
+      run: docker push codemog:ms_demog_lookups$(date +%s)
