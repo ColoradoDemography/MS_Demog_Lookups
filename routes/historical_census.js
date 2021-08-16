@@ -56,7 +56,7 @@ module.exports = function(app, pg, conString) {
         if (!req.query.year) {
             res.send('please specify a year (or comma separated list of years)');
         } else {
-            yeardomain = ["1870", "1880", "1890", "1900", "1910", "1920", "1930", "1940", "1950", "1960", "1970", "1980", "1990", "2000", "2010"];
+            yeardomain = ["1870", "1880", "1890", "1900", "1910", "1920", "1930", "1940", "1950", "1960", "1970", "1980", "1990", "2000", "2010", "2020"];
             //create array of years
             year = (req.query.year).split(",");
             //validate year input
@@ -161,7 +161,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select area_name from estimates.historical_census where area_type='M' and population_year=2010  order by area_name asc;", function(err, result) {
+            client.query("select area_name from estimates.historical_census where area_type='M' and population_year=2020  order by area_name asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
@@ -182,7 +182,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select area_name from estimates.historical_census where area_type='C' and population_year=2010 order by area_name asc;", function(err, result) {
+            client.query("select area_name from estimates.historical_census where area_type='C' and population_year=2020 order by area_name asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
