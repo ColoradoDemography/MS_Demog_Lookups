@@ -5,7 +5,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /base-analysis<br />
 **Filename** base\_analysis.js<br />
 **Data:** Base Analysis Industry Report Variables<br />
-**Years** 2014<br />
+**Years** 2020<br />
 **Elements:** County\*<br />
 [More Info](doc/base_analysis.md)
 
@@ -14,7 +14,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /components<br />
 **Filename** components\_change.js<br />
 **Data:** Births, Deaths, and Net Migration<br />
-**Years:** 1970 to 2014 (Estimates), 2015 to 2050 (Forecast)<br />
+**Years:** 1970 to 2020 (Estimates), 2021 to 2050 (Forecast)<br />
 **Elements:** County, Year<br />
 [More Info](doc/components_change.md)
 
@@ -23,7 +23,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /profile<br />
 **Filename** county\_profiles.js<br />
 **Data:** Births, Deaths, Natural Increase, Net Migration, Building Permits, Group Quarters Population, Households, Household Population, Household Size, Total Housing Units, Vacant Housing Units, Vacancy Rate<br />
-**Years** 1985 to 2014<br />
+**Years** 1985 to 2020<br />
 **Elements:** County, Year<br />
 [More Info](doc/county_profiles.md)
 
@@ -41,7 +41,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /sya<br />
 **Filename** county\_sya.js<br />
 **Data:** Population, Male, Female<br />
-**Years** 1990 to 2014 (Estimate), 2015 to 2050 (Forecast)<br />
+**Years** 1990 to 2020 (Estimate), 2021 to 2050 (Forecast)<br />
 **Elements:** County, Year, Age<br />
 [More Info](doc/county_sya.md)
 
@@ -50,7 +50,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /sya-race-estimates<br />
 **Filename** county\_sya\_race\_estimates.js<br />
 **Data:** Population<br />
-**Years** 2011 to 2014<br />
+**Years** 2011 to 2020<br />
 **Elements:** County, Year, Sex, Age, Race<br />
 [More Info](doc/county_sya_race_estimates.md)
 
@@ -68,7 +68,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /jobs<br />
 **Filename** jobs\_by\_sector.js<br />
 **Data:** Total Jobs<br />
-**Years** 2001 to 2014<br />
+**Years** 2001 to 2020<br />
 **Elements:** County, Year, Sector (NAICS Code)<br />
 [More Info](doc/jobs_by_sector.md)
 
@@ -85,7 +85,7 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 /munipophousing<br />
 **Filename** muni\_pop\_housing.js<br />
 **Data:** Population, Household Population, Group Quarters Population, Household Size, Housing Units, Occupied Housing Units, Vacant Housing Units, Vacancy Rate<br />
-**Years** 2010 to 2014<br />
+**Years** 2010 to 2020<br />
 **Elements:** Municipality, Year<br />
 [More Info](doc/muni_pop_housing.md)
 
