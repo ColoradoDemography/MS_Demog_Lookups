@@ -48,6 +48,7 @@ module.exports = function(app, pg, conString) {
 		   }
 		   if(choice == 'place'){
 			    var basequery = 'SELECT fips, place, year, type, location, number, percent FROM data.otm_county_place ';
+		   }
 	   };
       if(geo == 'place'){
 		   if(choice == 'summary'){
