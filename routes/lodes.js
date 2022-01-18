@@ -47,14 +47,14 @@ module.exports = function(app, pg, conString) {
               var basequery = 'SELECT fips, place, year, livein_workout, liveout_workin, livein_work_in FROM data.otm_county_summary ';
 		   }
 		   if(choice == 'place'){
-			    var basequery = 'SELECT fips, place, year, type, location, "number", percent FROM data.otm_county_place ';
+			    var basequery = 'SELECT fips, place, year, type, location, number, percent FROM data.otm_county_place ';
 	   };
       if(geo == 'place'){
 		   if(choice == 'summary'){
               var basequery = 'SELECT fips, place, year, livein_workout, liveout_workin, livein_work_in FROM data.otm_place_summary ';
 		   }
 		   if(choice == 'place'){
-			    var basequery = 'SELECT fips, place, year, type, location, "number", percent FROM data.otm_place_place ';
+			    var basequery = 'SELECT fips, place, year, type, location, number, percent FROM data.otm_place_place ';
 		   }
 	   }
 
