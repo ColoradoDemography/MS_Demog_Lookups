@@ -29,7 +29,7 @@ require('./routes/historical_census.js')(app, pg, conString);
 require('./routes/jobs_forecast.js')(app, pg, conString);
 require('./routes/wage_data.js')(app, pg, conString);
 require('./routes/county_migbyage.js')(app, pg, conString);
-require('./routes/lodes.js')(app, pg, conString);
+//require('./routes/lodes.js')(app, pg, conString);
 require('./routes/munijobs.js')(app, pg, conString);
 
 
