@@ -103,7 +103,7 @@ module.exports = function(app, pg, conString) {
         }
 		
         //create sql selector for years
-		var yearsting = ' year = ' + year[j];
+		var yearsting = ' year = ' + year[0];
         for (j = 1; j < year.length; j++) {
             yearstring = yearstring + " OR year = " + year[j];
         }
