@@ -1,12 +1,3 @@
-// LODES.js calls the census lodes data from SDO postgres tables  A Bickford. January 2022
-// LODES Call 
-// https://gis.dola.colorado.gov/lookups/lodes?geo=[county,place]&geonum=[fips code]&year=2018,2019&choice=[summary,place]
-//The database tables 
-//otm_county_summary : County Summary data for the venn diagram
-//otm_county_place : County In and out migration for transaction tables
-//otm_place_summary : Place Summary data for the venn diagram
-//otm_place_place : Place In and out migration for transaction tables
-
 var validate = require("../modules/common_functions.js").validate;
 var pad = require("../modules/common_functions.js").pad;
 var sendtodatabase = require("../modules/common_functions.js").sendtodatabase;
@@ -14,33 +5,36 @@ var construct_delimited_string = require("../modules/common_functions.js").const
 
 var request = require('request');
 
+
 module.exports = function(app, pg, conString) {
+   
+    app.get('/munijobs', function(req, res) {
+        
+        //table name
+        var schtbl = "estimates.muni_jobs_long";
 
-    app.get('/lodes', function(req, res) {
-		
-       //building sql statement
-	   //Table selection
-	   if(req.query.geo == 'county'){
-		   if(req.query.choice == 'summary'){
-              var basequery = 'SELECT * FROM data.otm_county_summary ';
-		   }
-		   if(req.query.choice == 'place'){
-			    var basequery = 'SELECT * FROM data.otm_county_place ';
-	   }
-	   };
-      if(req.query.geo == 'place'){
-		   if(req.query.choice == 'summary'){
-              var basequery = 'SELECT * FROM data.otm_place_summary ';
-		   }
-		   if(req.query.choice == 'place'){
-			    var basequery = 'SELECT * FROM data.otm_place_place ';
-		   }
-	   }
-// Checking inputs
 
-  if(req.query.geo == 'place'){
-		//create array of muni fips codes
-        var muni = (req.query.geonum).split(",");
+        //schema.table combination
+        var basequery = "SELECT * from " + schtbl + " WHERE ";
+        
+        var munistring = "";
+
+        var sqlstring;
+
+        var j; //iterators
+        
+        //exit if no muni
+        if (!req.query.fips) {
+            res.send('please specify a municipality (or comma separated list of munipalities)');
+            return;
+        }
+        
+		//exit if no year
+        if (!req.query.year) {
+            res.send('please specify a year (or comma separated list of years)');
+        }
+        //create array of muni fips codes
+        var muni = (req.query.fips).split(",");
         var munidomain = [“760”, “925”, “1090”, “1530”, “2355”, “3235”, “3455”, “3620”, “3950”, “4000”, “4110”, “4935”, “5265”, 
 						“6090”, “6255”, “6530”, “7025”, “7190”, “7410”, “7571”, “7795”, “7850”, “8070”, “8345”, “8400”, 
 						“8675”, “9115”, “9280”, “9555”, “10105”, “10600”, “11260”, “11645”, “11810”, “12045”, “12387”, 
@@ -68,52 +62,40 @@ module.exports = function(app, pg, conString) {
 						“86090”, “86310”, “86475”, “86750”];
 
         if (!validate(muni, munidomain)) {
-            res.send('one of your geography inputs is not valid!');
+            res.send('one of your municipality inputs is not valid!');
             return;
         }
-	var geoarr = muni;
-  }
-  
-  if(req.query.geo == 'county'){
-        var cty = (req.query.geonum).split(",");	  
-	    var ctydomain = [“1”, “3”, “5”, “7”, “9”, “11”, “13”, “14”, “15”, “17”, “19”, “21”, “23”, “25”, “27”, “29”, “31”, “33”, “35”, 
-						“37”, “39”, “41”, “43”, “45”, “47”, “49”, “51”, “53”, “55”, “57”, “59”, “61”, “63”, “65”, “67”, “69”, “71”, 
-						“73”, “75”, “77”, “79”, “81”, “83”, “85”, “87”, “89”, “91”, “93”, “95”, “97”, “99”, “101”, “103”, “105”, 
-						“107”, “109”, “111”, “113”, “115”, “117”, “119”, “121”, “123”, “125”]
+  //Create Muni String
+    var munistring = ' fips = ' + muni[0];
+	for (j = 1; j < muni.length; j++) {
+		munistring = munistring + " OR fips = " + muni[j];
+	}
 
-	         if (!validate(cty, ctydomain)) {
-            res.send('one of your geography inputs is not valid!');
-            return;
-        }
-		var geoarr = cty;
-  }
-  //create array of geocodes
-  var geostring = ' fips = ' + geoarr[0];
-        for (j = 1; j < geoarr.length; j++) {
-            geostring = geostring + " OR fips = " + geoarr[j];
-        }
- 
-
-  //create array of years
+ //create array of years
         var year = (req.query.year).split(",");
-        var yeardomain = ["2018", "2019"];
+        var yeardomain = ["2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
         if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
             return;
         }
-		
+        //create sql selector for years
+        for (j = 0; j < year.length; j++) {
+            yearstring = yearstring + schtbl + " year = " + year[j] + " OR ";
+        }
+        //remove stray OR from end of sql selector
+        yearstring = yearstring.substring(0, yearstring.length - 3);
+
+
         //create sql selector for years
 		var yearsting = ' year = ' + year[j];
         for (j = 1; j < year.length; j++) {
             yearstring = yearstring + " OR year = " + year[j];
         }
- 
-      //Geo and year selection
-	  var sqlstring = basequery + ' WHERE ( ' + geostring + ') AND (' + yearstring + ');'
 
-        // send to database 
+                //put it all together
+        var sqlstring = basequery + ' WHERE ( ' + munistring + ') AND (' + yearstring + ');'
+       
+        sendtodatabase(sqlstring, pg, conString, res);
+    };
 
-        sendtodatabase(sqlstring);
-
-}
 }
