@@ -20,25 +20,25 @@ module.exports = function(app, pg, conString) {
 		
        //building sql statement
 	   //Table selection
-	   if(req.query.geo == 'county'){
-		   if(req.query.choice == 'summary'){
+	   if(req.query.geo === 'county'){
+		   if(req.query.choice === 'summary'){
               var basequery = 'SELECT * FROM data.otm_county_summary ';
 		   }
-		   if(req.query.choice == 'place'){
+		   if(req.query.choice === 'place'){
 			    var basequery = 'SELECT * FROM data.otm_county_place ';
 	   }
 	   };
-      if(req.query.geo == 'place'){
-		   if(req.query.choice == 'summary'){
+      if(req.query.geo === 'place'){
+		   if(req.query.choice === 'summary'){
               var basequery = 'SELECT * FROM data.otm_place_summary ';
 		   }
-		   if(req.query.choice == 'place'){
+		   if(req.query.choice === 'place'){
 			    var basequery = 'SELECT * FROM data.otm_place_place ';
 		   }
 	   }
 // Checking inputs
 
-  if(req.query.geo == 'place'){
+  if(req.query.geo === 'place'){
 		//create array of muni fips codes
         var muni = (req.query.geonum).split(",");
         var munidomain = [“760”, “925”, “1090”, “1530”, “2355”, “3235”, “3455”, “3620”, “3950”, “4000”, “4110”, “4935”,
@@ -74,7 +74,7 @@ module.exports = function(app, pg, conString) {
 	var geoarr = muni;
   }
   
-  if(req.query.geo == 'county'){
+  if(req.query.geo === 'county'){
         var cty = (req.query.geonum).split(",");	  
 	    var ctydomain = [“1”, “3”, “5”, “7”, “9”, “11”, “13”, “14”, “15”, “17”, “19”, “21”, “23”, “25”, “27”, “29”, “31”, “33”, “35”, 
 						“37”, “39”, “41”, “43”, “45”, “47”, “49”, “51”, “53”, “55”, “57”, “59”, “61”, “63”, “65”, “67”, “69”, “71”, 
