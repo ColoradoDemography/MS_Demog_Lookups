@@ -159,6 +159,6 @@ module.exports = function(app, pg, conString) {
         }  //sendtodatabase
 
     });
-
+}
 
 
