@@ -33,7 +33,7 @@ module.exports = function(app, pg, conString) {
         //compress: explicit yes or no
 
 
-        var yearstring = "";
+        var yearstr = "";
         var countystring = "";
         // var typestring = "";
       //  var statstring = "";
@@ -122,7 +122,7 @@ module.exports = function(app, pg, conString) {
 		if(placefipslist.includes(tablestr)){
 			var geoselstr = "fips IN (" + geostr + ")";
 		}
-            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstring + ') AND (' + geoselstr + ');';
+            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstr + ') AND (' + geoselstr + ');';
             console.log(sqlstring)
 	    
 	    sendtodatabase(sqlstring);
