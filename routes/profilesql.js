@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString) {
 //profilesql reads a url with a table specification, a geography specification (county or place), and a year soecification
     // respond with "Hello World!" on the homepage
-    app.get('/profilssql', function(req, res) {
+    app.get('/profilesql', function(req, res) {
 
 
         //function to check all data input against valid values
