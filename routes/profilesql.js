@@ -123,9 +123,11 @@ module.exports = function(app, pg, conString) {
 			var geoselstr = "fips IN (" + geostr + ")";
 		}
             sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstring + ') AND (' + geoselstr + ');';
-            sendtodatabase(sqlstring);
-            
             console.log(sqlstring)
+	    
+	    sendtodatabase(sqlstring);
+            
+            
     
 
 
