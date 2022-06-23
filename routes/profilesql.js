@@ -1,6 +1,6 @@
 module.exports = function(app, pg, conString) {
-//profilesql reads a url with a table specification, a geography specification (county or place), and a year soecification
-    // respond with "Hello World!" on the homepage
+//profilesql reads a url with a table specification, a geography specification (county or place fips code), and a year specification
+
     app.get('/profilesql', function(req, res) {
 
 
@@ -33,7 +33,7 @@ module.exports = function(app, pg, conString) {
         //compress: explicit yes or no
 
 
-        var yearstr = "";
+        var yearstring = "";
         var countystring = "";
         // var typestring = "";
       //  var statstring = "";
@@ -78,7 +78,7 @@ module.exports = function(app, pg, conString) {
 //           county = (req.query.county).split(",");
             //validate place input
 //            if (!validate(county, countydomain)) {
-//                res.send('one of your county inputs is not valid!');
+//                res.send('one of your county inputs is not valid!');.
 //                return;
 //            }
 //        }
@@ -120,14 +120,12 @@ module.exports = function(app, pg, conString) {
 			var geoselstr = "fips IN (" + geostr + ")";
 		}
 		if(placefipslist.includes(tablestr)){
-			var geoselstr = "fips IN (" + geostr + ")";
+			var geoselstr = "placefips IN (" + geostr + ")";
 		}
-            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstr + ') AND (' + geoselstr + ');';
+            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstring + ') AND (' + geoselstr + ');';
+            sendtodatabase(sqlstring);
+            
             console.log(sqlstring)
-	    
-	    sendtodatabase(sqlstring);
-            
-            
     
 
 
@@ -161,6 +159,6 @@ module.exports = function(app, pg, conString) {
         }  //sendtodatabase
 
     });
-}
+
 
 
