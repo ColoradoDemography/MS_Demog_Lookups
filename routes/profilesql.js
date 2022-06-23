@@ -98,7 +98,7 @@ module.exports = function(app, pg, conString) {
                 
         // geography and year sql selector
 		var geostr = req.query.geo;
-		var yearstr = "year IN ("+ req.query.year +")";
+		var yearstring = "year IN ("+ req.query.year +")";
         //full sql string selector
 		
 		//building the geo selection component
@@ -122,7 +122,7 @@ module.exports = function(app, pg, conString) {
 		if(placefipslist.includes(tablestr)){
 			var geoselstr = "placefips IN (" + geostr + ")";
 		}
-            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstr + ') AND (' + geoselstr + ');';
+            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstring + ') AND (' + geoselstr + ');';
             sendtodatabase(sqlstring);
             
             console.log(sqlstring)
