@@ -122,7 +122,7 @@ module.exports = function(app, pg, conString) {
 		if(placefipslist.includes(tablestr)){
 			var geoselstr = "placefips IN (" + geostr + ")";
 		}
-            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstring + ') AND (' + geoselstr + ');';
+            sqlstring = basequery + ' FROM ' + tablestr + ' WHERE (' + yearstr + ') AND (' + geoselstr + ');';
             sendtodatabase(sqlstring);
             
             console.log(sqlstring)
