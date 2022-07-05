@@ -1,11 +1,16 @@
 module.exports = function(app, pg, conString) {
-
+    //Modified 7/5/2022 for testing, remove the "test" option from the programwhen in production
     // respond with "Hello World!" on the homepage
     app.get('/sya-race-estimates', function(req, res) {
 
         //table name
+		//MOD 7/5/2022
+		if (req.query.test) {
+		var schtbl = "estimates.county_sya_race_estimates_current";
+		} else {
         var schtbl = "estimates.county_sya_race_estimates";
-
+        }
+		
         var gender = "";
         var genderstring = " sex='M' OR sex='F' "; //
 
@@ -290,9 +295,14 @@ module.exports = function(app, pg, conString) {
 
 
         //create array of years
+		//MOD 7/5/2022
         var year = (req.query.year).split(",");
+		if (req.query.test) {
+			var yeardomain = ["2020", "2021"];
+		} else {
         var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
-        if (!validate(year, yeardomain)) {
+        }
+		if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
             return;
         }
@@ -322,13 +332,42 @@ module.exports = function(app, pg, conString) {
 
 
         //create array of races
+		//MOD 7/5/2022
         var race = (req.query.race).split(",");
-        var racedomain = ["1", "2", "3", "4"];
+		if (req.query.test) {
+			var racedomain = ["1","2","3","4","5", "6"];
+		} else {
+			var racedomain = ["1", "2", "3", "4"];
+		}
         if (!validate(race, racedomain)) {
             res.send('one of your race inputs is not valid!');
             return;
         }
 
+        //MOD 7/5/2022
+		if (req.query.test) {
+		 for (j = 0; j < race.length; j++) {
+            if (race[j] === "1") {
+                race[j] = "'American Indian and Alaska Native alone'";
+            }
+            if (race[j] === "2") {
+                race[j] = "'Asian alone'";
+            }
+            if (race[j] === "3") {
+                race[j] = "'Black or African American alone'";
+            }
+            if (race[j] === "4") {
+                race[j] = "'Native Hawaiian or Other Pacific Islander alone'";
+            }
+			if (race[j] === "5") {
+                race[j] = "'White alone'";
+            }
+			if (race[j] === "6") {
+                race[j] = "'Two or More Races'";
+            }
+			racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
+        }
+		} else {
         //create sql selector for races
         for (j = 0; j < race.length; j++) {
             //if (race[j] === "1") {
@@ -349,8 +388,9 @@ module.exports = function(app, pg, conString) {
             //if (race[j] === "6") {
                 //race[j] = "'Total'";
             //}
-            racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
+	            racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
         }
+		 }
         //remove stray OR from end of sql selector
         racestring = racestring.substring(0, racestring.length - 3);
 
