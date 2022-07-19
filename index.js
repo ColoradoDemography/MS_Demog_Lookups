@@ -20,6 +20,7 @@ require('./routes/county_profiles.js')(app, pg, conString);
 require('./routes/county_race_by_age_forecast.js')(app, pg, conString);
 require('./routes/county_sya.js')(app, pg, conString);
 require('./routes/county_sya_race_estimates.js')(app, pg, conString);
+require('./routes/county_sya_race_estimates_current.js')(app, pg, conString); //Added 7/19/2022 AB
 require('./routes/household_projections.js')(app, pg, conString);
 require('./routes/jobs_by_sector.js')(app, pg, conString);
 require('./routes/labor_force_participation.js')(app, pg, conString);
