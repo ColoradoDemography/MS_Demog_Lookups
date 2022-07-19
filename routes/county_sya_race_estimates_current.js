@@ -8,7 +8,7 @@ module.exports = function(app, pg, conString) {
 		//if (req.query.test) {
 		//var schtbl = "estimates.county_sya_race_estimates_current";
 		//} else {
-        var schtbl = "estimates.county_sya_race_estimates";
+        var schtbl = "estimates.county_sya_race_estimates_current";
         //}
 		
         var gender = "";
