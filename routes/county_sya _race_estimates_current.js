@@ -347,6 +347,7 @@ module.exports = function(app, pg, conString) {
         //MOD 7/5/2022
 		//if (req.query.test) {
 		 for (j = 0; j < race.length; j++) {
+		
             if (race[j] === "1") {
                 race[j] = "'White alone'";
             }
@@ -365,6 +366,7 @@ module.exports = function(app, pg, conString) {
 			if (race[j] === "6") {
                 race[j] = "'Two or more'";
             }
+		
 			racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
         }
 		/*
@@ -413,7 +415,7 @@ module.exports = function(app, pg, conString) {
                 ethnicity[j] = "'Hispanic'";
             }
             if (ethnicity[j] === "2") {
-                ethnicity[j] = "'Not Hispanic'";
+                ethnicity[j] = "'Non Hispanic'";
             }
             ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
         }
