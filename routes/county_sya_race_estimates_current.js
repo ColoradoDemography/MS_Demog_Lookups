@@ -335,7 +335,7 @@ module.exports = function(app, pg, conString) {
 		//MOD 7/5/2022
         var race = (req.query.race).split(",");
 		//if (req.query.test) {
-			var racedomain = ["1","2","3","4","5", "6"];
+			var racedomain = ["1","2","3","4","5","6"];
 		//} else {
 		//	var racedomain = ["1", "2", "3", "4"];
 		//}
@@ -354,7 +354,7 @@ module.exports = function(app, pg, conString) {
                 race[j] = "'Black or African American alone'";
             }
             if (race[j] === "3") {
-                race[j] = "'BAmerican Indian and Alaska Native alone'";
+                race[j] = "'American Indian and Alaska Native alone'";
             }
            if (race[j] === "4") {
                 race[j] = "'Asian alone'";
@@ -362,8 +362,8 @@ module.exports = function(app, pg, conString) {
             if (race[j] === "5") {
                 race[j] = "'Native Hawaiian or Other Pacific Islander alone'";
             }
-			if (race[j] === "6") {
-                race[j] = "'Two or more'";
+        if (race[j] === "6") {
+                race[j] = "'Two or more '";
             }
 			racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
         }
