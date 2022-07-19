@@ -1,7 +1,7 @@
 module.exports = function(app, pg, conString) {
     //Modified 7/5/2022 for testing, remove the "test" option from the programwhen in production
     // respond with "Hello World!" on the homepage
-    app.get('//county_sya_race_estimates_current', function(req, res) {
+    app.get('/county_sya_race_estimates_current', function(req, res) {
 
         //table name
 		//MOD 7/5/2022 Modification for the 2022 data files
