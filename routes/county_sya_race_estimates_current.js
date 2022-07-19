@@ -410,10 +410,10 @@ module.exports = function(app, pg, conString) {
         //create sql selector for ethnicity
         for (j = 0; j < ethnicity.length; j++) {
             if (ethnicity[j] === "1") {
-                ethnicity[j] = "'Hispanic Origin'";
+                ethnicity[j] = "'Hispanic'";
             }
             if (ethnicity[j] === "2") {
-                ethnicity[j] = "'Not of Hispanic Origin'";
+                ethnicity[j] = "'Non Hispanic'";
             }
             ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
         }
@@ -866,10 +866,10 @@ module.exports = function(app, pg, conString) {
         //create sql selector for ethnicity
         for (j = 0; j < ethnicity.length; j++) {
             if (ethnicity[j] === "1") {
-                ethnicity[j] = "'Hispanic Origin'";
+                ethnicity[j] = "'Hispanic'";
             }
             if (ethnicity[j] === "2") {
-                ethnicity[j] = "'Not of Hispanic Origin'";
+                ethnicity[j] = "'Non Hispanic'";
             }
             ethnicitystring = ethnicitystring + schtbl + ".ethnicity = " + ethnicity[j] + " OR ";
         }
