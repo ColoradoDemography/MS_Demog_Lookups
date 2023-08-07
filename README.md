@@ -54,6 +54,14 @@ NodeJS microservice suite to deliver Colorado State Demography Office Products
 **Elements:** County, Year, Sex, Age, Race<br />
 [More Info](doc/county_sya_race_estimates.md)
 
+#### Historical Population
+/historicalcensus<br />
+**Filename** historical\_census.js<br />
+**Data:** Population<br />
+**Years** 1870 to 2020<br />
+**Elements:** County, Municipality, Year, Population<br />
+[More Info](doc/historical_census.md)
+
 
 #### Household Projections
 /household<br />
