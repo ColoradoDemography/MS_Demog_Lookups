@@ -363,7 +363,7 @@ module.exports = function(app, pg, conString) {
                 race[j] = "'Native Hawaiian or Other Pacific Islander alone'";
             }
         if (race[j] === "6") {
-                race[j] = "'Two or more '";
+                race[j] = "'Two or more'";
             }
 			racestring = racestring + schtbl + ".race = " + race[j] + " OR ";
         }
