@@ -11,11 +11,11 @@ module.exports = function(app, pg, conString) {
         var statarray = [];
 
         if (!req.query.vars) {
-            stats = "totalpopulation,births,censusbuildingpermits,deaths,groupquarterspopulation,householdpopulation,households,householdsize,naturalincrease,netmigration,totalhousingunits,vacancyrate,vacanthousingunits";
-            statarray = ["totalpopulation","births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits"];
+            stats = "totalpopulation,births,censusbuildingpermits,deaths,groupquarterspopulation,householdpopulation,households,householdsize,naturalincrease,netmigration,totalhousingunits,vacancyrate,vacanthousingunits,hhldpoptothuratio";
+            statarray = ["totalpopulation","births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits","hhldpoptothuratio"];
         } else {
             var statarray = (req.query.vars).split(",");
-            var statdomain = ["totalpopulation","births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits"];
+            var statdomain = ["totalpopulation","births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits","hhldpoptothuratio"];
             if (!validate(statarray, statdomain)) {
                 res.send('one of your statistic inputs is not valid!');
                 return;
@@ -213,11 +213,11 @@ module.exports = function(app, pg, conString) {
         var statarray = [];
 
         if (!req.query.vars) {
-            stats = "totalpopulation, births,censusbuildingpermits,deaths,groupquarterspopulation,householdpopulation,households,householdsize,naturalincrease,netmigration,totalhousingunits,vacancyrate,vacanthousingunits";
-            statarray = ["totalpopulation","births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits"];
+            stats = "totalpopulation, births,censusbuildingpermits,deaths,groupquarterspopulation,householdpopulation,households,householdsize,naturalincrease,netmigration,totalhousingunits,vacancyrate,vacanthousingunits","hhldpoptothuratio";
+            statarray = ["totalpopulation","births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits","hhldpoptothuratio"];
         } else {
             var statarray = (req.query.vars).split(",");
-            var statdomain = ["totalpopulation", "births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits"];
+            var statdomain = ["totalpopulation", "births", "censusbuildingpermits", "deaths", "groupquarterspopulation", "householdpopulation", "households", "householdsize", "naturalincrease", "netmigration", "totalhousingunits", "vacancyrate", "vacanthousingunits","hhldpoptothuratio"];
             if (!validate(statarray, statdomain)) {
                 res.send('one of your statistic inputs is not valid!');
                 return;
