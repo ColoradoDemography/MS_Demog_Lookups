@@ -107,7 +107,7 @@ module.exports = function(app, pg, conString) {
 
 
         if (req.query.stats) {
-            statdomain = ["totalpopulation", "householdpopulation", "groupquarterspopulation", "totalhousingunits", "occupiedhousingunits", "vacanthousingunits"];
+            statdomain = ["totalpopulation","householdpopulation","groupquarterspopulation","householdsize","totalhousingunits","occupiedhousingunits","vacanthousingunits","vacancyrate","hhldpoptothuratio"];
             slist = (req.query.stats).split(",");
             //validate place input
             if (!validate(slist, statdomain)) {
