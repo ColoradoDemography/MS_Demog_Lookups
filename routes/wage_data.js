@@ -25,7 +25,7 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var schtbl = "data.average_wage";
-        var basequery = "SELECT area_code, population_year, sector_id, avg_wage, category";
+        var basequery = "SELECT area_code, population_year, sector_id, avg_wage, category, wage_source, wage_source_override";
         // var statlist = "total_population"; 
 
 
@@ -179,7 +179,7 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var schtbl = "data.wage_boundaries";
-        var basequery = "SELECT area_code, population_year, category, cat_jobs, sum_jobs, pct_jobs, leg_color, min_wage, max_wage, total_wage";
+        var basequery = "SELECT area_code, population_year, category, cat_jobs, sum_jobs, pct_jobs, leg_color, min_wage, max_wage, total_wage", "label";
         // var statlist = "total_population"; 
 
 
