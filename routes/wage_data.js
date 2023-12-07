@@ -179,7 +179,7 @@ module.exports = function(app, pg, conString) {
 
         //schema.table combination
         var schtbl = "data.wage_boundaries";
-        var basequery = "SELECT area_code, population_year, category, cat_jobs, sum_jobs, pct_jobs, leg_color, min_wage, max_wage, total_wage", "label";
+        var basequery = "SELECT area_code, population_year, category, cat_jobs, sum_jobs, pct_jobs, leg_color, min_wage, max_wage, total_wage, label";
         // var statlist = "total_population"; 
 
 
