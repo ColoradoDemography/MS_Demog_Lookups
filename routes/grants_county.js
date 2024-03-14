@@ -87,6 +87,10 @@ module.exports = function(app, pg, conString) {
         sendtodatabase(sqlstring, pg, conString, res);
 
     });
+     app.get('/grantYRS', function(req, res) {
 
+        sendtodatabase("select year, datatype from estimates.grants_counties_years where countyfips=0 order by year asc;", pg, conString, res);
+
+    });
 
 }
