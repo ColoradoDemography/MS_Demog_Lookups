@@ -33,6 +33,7 @@ require('./routes/county_migbyage.js')(app, pg, conString);
 require('./routes/profilesql.js')(app, pg, conString);
 //require('./routes/lodes.js')(app, pg, conString);
 require('./routes/munijobs.js')(app, pg, conString);
+require('./routes/grants_county.js')(app, pg, conString);
 
 
 var server = app.listen(4001, function() {
