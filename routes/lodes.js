@@ -29,7 +29,7 @@ module.exports = function(app, pg, conString) {
 		if(req.query.choice == 'place'){
 			  var basequery = 'SELECT * FROM data.otm_county_place_sector ';
 			  var geostring = 'work_cty = ' + geoarr + ' OR home_cty = ' + geoarr;
-	   }
+	      }
 	   };
       if(req.query.geo == 'place'){
 		   if(req.query.choice == 'summary'){
@@ -51,5 +51,5 @@ module.exports = function(app, pg, conString) {
 
      sendtodatabase(sqlstring);
 
-}
+})
 }
