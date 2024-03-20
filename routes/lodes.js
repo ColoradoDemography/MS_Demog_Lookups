@@ -24,21 +24,21 @@ module.exports = function(app, pg, conString) {
 	   if(req.query.geo == 'county'){
 		   if(req.query.choice == 'summary'){
               var basequery = 'SELECT * FROM data.otm_county_summary_sector ';
-			  var geostring = 'fips = ' + geoarr;
+			  var geostring = "fips = '" + geoarr + "'";
 		   }
 		if(req.query.choice == 'place'){
 			  var basequery = 'SELECT * FROM data.otm_county_place_sector ';
-			  var geostring = 'work_cty = ' + geoarr + ' OR home_cty = ' + geoarr;
+			  var geostring = "work_cty = '" + geoarr + "' OR home_cty = '" + geoarr + "'";
 	      }
 	   };
       if(req.query.geo == 'place'){
 		   if(req.query.choice == 'summary'){
               var basequery = 'SELECT * FROM data.otm_place_summary_sector ';
-			  var geostring = 'fips = ' + geoarr;
+			  var geostring = "fips = '" + geoarr + "'";
 		   }
 		   if(req.query.choice == 'place'){
 			    var basequery = 'SELECT * FROM data.otm_place_place_sector ';
-			    var geostring = 'work_place = ' + geoarr + ' OR home_place = ' + geoarr;
+			    var geostring = "work_place = '" + geoarr + "' OR home_place = '" + geoarr + "'";
 		   }
 	   }
 
@@ -51,5 +51,5 @@ module.exports = function(app, pg, conString) {
 
      sendtodatabase(sqlstring);
 
-});
+})
 }
