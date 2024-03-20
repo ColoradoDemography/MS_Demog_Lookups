@@ -104,8 +104,8 @@ module.exports = function(app, pg, conString) {
 		//building the geo selection component
 		const areacodelist = ["estimates.bea_jobs", "estimates.household_projections", "estimates.labor_force_participation"];
 		const ctyfipslist = ["estimates.county_muni_timeseries","estimates.county_profiles","estimates.jobs_by_sector", "estimates.jobs_forecast"]
-		const fipslist = ["data.netmigrbyage", "data.otm_county_place", "data.otm_county_summary", 
-						"data.otm_place_place", "data.otm_place_summary", 
+		const fipslist = ["data.netmigrbyage", "data.otm_county_place_sector", "data.otm_county_summary_sector", 
+						"data.otm_place_place_sector", "data.otm_place_summary_sector", 
 						"estimates.base_analysis",  "estimates.bls_unemployment", "estimates.firm_count", "estimates.weekly_wages"]; 
 		const placefipslist = ["estimates.muni_pop_housing", "estimates.county_muni_timeseries", "estimates.muni_jobs_long"]; 
 
