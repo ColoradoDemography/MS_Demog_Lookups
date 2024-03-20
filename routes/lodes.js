@@ -7,13 +7,6 @@
 //otm_place_summary_sector : Place Summary data for the venn diagram
 //otm_place_place_sector : Place In and out migration for transaction tables
 
-var validate = require("../modules/common_functions.js").validate;
-var pad = require("../modules/common_functions.js").pad;
-var sendtodatabase = require("../modules/common_functions.js").sendtodatabase;
-var construct_delimited_string = require("../modules/common_functions.js").construct_delimited_string;
-
-var request = require('request');
-
 module.exports = function(app, pg, conString) {
 
     app.get('/lodes', function(req, res) {
@@ -48,8 +41,38 @@ module.exports = function(app, pg, conString) {
      //After 2021, when more data is in files
 	 // var sqlstring = basequery + ' WHERE ( ' + geostring + ') AND (' + yearstring + ');'
      // send to database 
+     console.log(sqlstring)
+     sendtodatabase(sqlstring,conString);
+	 
+	         function sendtodatabase(sqlstring, conString) {
 
-     sendtodatabase(sqlstring);
+            var client = new pg.Client(conString);
+
+            client.connect(function(err) {
+
+                if (err) {
+                    return console.error('could not connect to postgres', err);
+                }
+
+                client.query(sqlstring, function(err, result) {
+
+                    if (err) {
+                        return console.error('error running query', err);
+                    }
+
+                    res.set({
+                        "Content-Type": "application/json"
+                    });
+                    // res.send(JSON.stringify(result.rows));
+                res.send(JSON.parse(JSON.stringify(result.rows).replace(/"\s+|\s+"/g,'"')));
+
+
+                    client.end();
+
+                });
+            });
+        }  //sendtodatabase
+
 
 })
 }
