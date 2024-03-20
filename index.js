@@ -31,7 +31,7 @@ require('./routes/jobs_forecast.js')(app, pg, conString);
 require('./routes/wage_data.js')(app, pg, conString);
 require('./routes/county_migbyage.js')(app, pg, conString);
 require('./routes/profilesql.js')(app, pg, conString);
-//require('./routes/lodes.js')(app, pg, conString);
+require('./routes/lodes.js')(app, pg, conString);
 require('./routes/munijobs.js')(app, pg, conString);
 require('./routes/grants_county.js')(app, pg, conString);
 
