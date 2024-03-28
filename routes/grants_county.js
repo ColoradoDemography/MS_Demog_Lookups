@@ -90,7 +90,7 @@ module.exports = function(app, pg, conString) {
     });
      app.get('/grantYRS', function(req, res) {
 
-        sendtodatabase("select year from estimates.grants_counties_years where countyfips=0 order by year asc;", pg, conString, res);
+        sendtodatabase("select year from estimates.grants_counties_years where countyfips=1 order by year asc;", pg, conString, res);
 
     });
 
