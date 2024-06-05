@@ -178,7 +178,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of age_groups
         var age_group = (req.query.age).split(",");
-        var age_groupdomain = ["a", "b", "c", "d", "e", "f", "g"];
+        var age_groupdomain = ["a", "b", "c", "d", "e", "f", "g", "h"];
         if (!validate(age_group, age_groupdomain)) {
             res.send('one of your age_group inputs is not valid!');
             return;
@@ -206,7 +206,10 @@ module.exports = function(app, pg, conString) {
                 age_group[j] = "'55 to 64'";
             }
             if (age_group[j] === "g") {
-                age_group[j] = "'65 and over'";
+                age_group[j] = "'65 to 74'";
+            }
+            if (age_group[j] === "h") {
+                age_group[j] = "'75 and over'";
             }
             age_groupstring = age_groupstring + schtbl + ".age_group = " + age_group[j] + " OR ";
         }
@@ -454,7 +457,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of age_groups
         var age_group = (req.query.age).split(",");
-        var age_groupdomain = ["a", "b", "c", "d", "e", "f", "g"];
+        var age_groupdomain = ["a", "b", "c", "d", "e", "f", "g", "h"];
         if (!validate(age_group, age_groupdomain)) {
             res.send('one of your age_group inputs is not valid!');
             return;
@@ -482,7 +485,10 @@ module.exports = function(app, pg, conString) {
                 age_group[j] = "'55 to 64'";
             }
             if (age_group[j] === "g") {
-                age_group[j] = "'65 and over'";
+                age_group[j] = "'65 to 74'";
+            }
+            if (age_group[j] === "h") {
+                age_group[j] = "'75 and over'";
             }
             age_groupstring = age_groupstring + schtbl + ".age_group = " + age_group[j] + " OR ";
         }
