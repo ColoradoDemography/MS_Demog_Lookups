@@ -122,7 +122,8 @@ module.exports = function(app, pg, conString) {
         //d = 35 to 44
         //e = 45 to 54
         //f = 55 to 64
-        //g = 65+
+        //g = 65 to 74
+		//h = 75 and Older
 
 
         //function to check all data input against valid values
@@ -162,7 +163,8 @@ module.exports = function(app, pg, conString) {
 
         //create array of population_years
         var population_year = (req.query.year).split(",");
-        var population_yeardomain = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040"];
+        var population_yeardomain = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030", "2031", "2032", "2033", "2034", "2035", "2036", "2037", "2038", "2039", "2040",
+		                             "2041", "2042", "2043", "2044", "2045", "2046", "2047", "2048", "2049", "2050"];
         if (!validate(population_year, population_yeardomain)) {
             res.send('one of your population_year inputs is not valid!');
             return;
