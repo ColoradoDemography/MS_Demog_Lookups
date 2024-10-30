@@ -350,7 +350,7 @@ app.get('/jobs0', function(req, res) {
 
         //create array of years
         var year = (req.query.year).split(",");
-        var yeardomain = ["2020", "2021", "2022"];
+        var yeardomain = ["2020", "2021", "2022", "2023"];
         if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
             return;
