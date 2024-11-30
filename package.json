@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/coloradodemography/MS_Demog_Lookups#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "pg": "^7.12.1",
     "request": "^2.88.0"
   }
