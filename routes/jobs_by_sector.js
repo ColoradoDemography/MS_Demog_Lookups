@@ -105,7 +105,7 @@ module.exports = function(app, pg, conString) {
 
 
         //put it all together
-        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id::int;";
+        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id;";
 
         console.log(sqlstring);
 
@@ -246,7 +246,7 @@ app.get('/jobs0', function(req, res) {
 
 
         //put it all together
-        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id::int;";
+        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id;";
 
         console.log(sqlstring);
 
@@ -387,7 +387,7 @@ app.get('/jobs0', function(req, res) {
 
 
         //put it all together
-        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id::int;";
+        sqlstring = basequery + "(" + countystring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id;";
 
         console.log(sqlstring);
 
@@ -431,7 +431,7 @@ app.get('/jobs0', function(req, res) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select population_year from estimates.jobs_by_sector where area_code=0 and sector_id='7000' order by population_year asc;", function(err, result) {
+            client.query("select population_year from estimates.jobs_by_sector where area_code=0 and sector_id='10' order by population_year asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
@@ -451,7 +451,7 @@ app.get('/jobs0', function(req, res) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select population_year from estimates.jobs_by_sector_0 where area_code=0 and sector_id='7000' order by population_year asc;", function(err, result) {
+            client.query("select population_year from estimates.jobs_by_sector_0 where area_code=0 and sector_id='10' order by population_year asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
@@ -568,7 +568,7 @@ app.get('/jobs0', function(req, res) {
 
 
         //put it all together
-        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id::int;";
+        sqlstring = basequery + "(" + reg_numstring + ") AND " + "(" + yearstring + ") AND (" + sectorstring + ") ORDER BY area_code, population_year, sector_id;";
 
         console.log(sqlstring);
 
