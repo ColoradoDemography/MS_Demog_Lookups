@@ -360,7 +360,7 @@ module.exports = function(app, pg, conString) {
                 race[j] = "'Asian alone'";
             }
             if (race[j] === "5") {
-                race[j] = "'Native Hawaiian or Other Pacific Islander alone'";
+                race[j] = "'Native Hawaiian and Other Pacific Islander alone'";
             }
         if (race[j] === "6") {
                 race[j] = "'Two or more'";
@@ -919,4 +919,5 @@ module.exports = function(app, pg, conString) {
 
 
 }
+
 
