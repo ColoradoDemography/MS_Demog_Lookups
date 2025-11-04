@@ -300,7 +300,7 @@ module.exports = function(app, pg, conString) {
 		if (req.query.test) {
 			var yeardomain = ["2020", "2021", "2022"];
 		} else {
-        var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"];
+        var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"];
         }
 		if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
@@ -357,7 +357,7 @@ module.exports = function(app, pg, conString) {
                 race[j] = "'Black or African American alone'";
             }
             if (race[j] === "4") {
-                race[j] = "'Native Hawaiian or Other Pacific Islander alone'";
+                race[j] = "'Native Hawaiian and Other Pacific Islander alone'";
             }
 			if (race[j] === "5") {
                 race[j] = "'White alone'";
@@ -790,7 +790,7 @@ module.exports = function(app, pg, conString) {
 
         //create array of years
         var year = (req.query.year).split(",");
-        var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"];
+        var yeardomain = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"];
         if (!validate(year, yeardomain)) {
             res.send('one of your year inputs is not valid!');
             return;
@@ -917,3 +917,4 @@ module.exports = function(app, pg, conString) {
 
 
 }
+
