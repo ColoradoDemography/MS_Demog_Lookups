@@ -88,7 +88,7 @@ module.exports = function(app, pg, conString) {
             sectorstring = "5=5"; //rather than explicitly list every sector
         } else {
             var sector = (req.query.sector).split(",");
-            var sectordomain = ["11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
+            var sectordomain = ["10", "11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
             if (!validate(sector, sectordomain)) {
                 res.send('one of your sector inputs is not valid!');
                 return;
@@ -229,7 +229,7 @@ app.get('/jobs0', function(req, res) {
             sectorstring = "5=5"; //rather than explicitly list every sector
         } else {
             var sector = (req.query.sector).split(",");
-            var sectordomain = ["11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
+            var sectordomain = ["10", "11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
             if (!validate(sector, sectordomain)) {
                 res.send('one of your sector inputs is not valid!');
                 return;
@@ -370,7 +370,7 @@ app.get('/jobs0', function(req, res) {
             sectorstring = "5=5"; //rather than explicitly list every sector
         } else {
             var sector = (req.query.sector).split(",");
-            var sectordomain = ["11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
+            var sectordomain = ["10", "11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
             if (!validate(sector, sectordomain)) {
                 res.send('one of your sector inputs is not valid!');
                 return;
@@ -551,7 +551,7 @@ app.get('/jobs0', function(req, res) {
             sectorstring = "5=5"; //rather than explicitly list every sector
         } else {
             var sector = (req.query.sector).split(",");
-            var sectordomain = ["11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
+            var sectordomain = ["10", "11", "21", "22", "23", "31-33", "42", "44-45", "48-49", "51", "52", "53", "54", "55", "56", "61", "62", "71", "72", "81", "92", "99"];
             if (!validate(sector, sectordomain)) {
                 res.send('one of your sector inputs is not valid!');
                 return;
