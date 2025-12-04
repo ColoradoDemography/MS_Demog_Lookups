@@ -276,7 +276,7 @@ module.exports = function(app, pg, conString) {
             if (err) {
                 return console.error('could not connect to postgres', err);
             }
-            client.query("select year from estimates.household_projections where area_code=0 and household_type_id=0 and age_group_id=0 order by year asc;", function(err, result) {
+            client.query("select year, datatype from estimates.household_projections where area_code=0 and household_type_id=0 and age_group_id=0 order by year asc;", function(err, result) {
                 if (err) {
                     return console.error('error running query', err);
                 }
