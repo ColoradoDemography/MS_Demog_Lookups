@@ -32,7 +32,7 @@ module.exports = function(app, pg, conString) {
         
 
         //schema.table combination
-        var basequery = "SELECT countyfips,year,age,county,malepopulation,femalepopulation,totalpopulation,datatype from " + schtbl + " where ";
+        var basequery = "SELECT countyfips,year,age,county,malepopulation,femalepopulation,totalpopulation,datatype, (year-age) as birthyear from " + schtbl + " where ";
         var groupby = "";
         
         // these selections refer to the Custom Single Year option
@@ -354,7 +354,7 @@ console.log(sqlstring)
         var categoryChoice = req.query.choice;
 
         //schema.table combination
-        var basequery = "SELECT reg_num,year,age,region,malepopulation,femalepopulation,totalpopulation,datatype from " + schtbl + " where ";
+        var basequery = "SELECT reg_num,year,age,region,malepopulation,femalepopulation,totalpopulation,datatype, (year-age) as birthyear from " + schtbl + " where ";
         var groupby = "";
 
         if (req.query.group) {
