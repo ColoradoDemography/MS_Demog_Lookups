@@ -32,6 +32,7 @@ module.exports = function(app, pg, conString) {
 		//exit if no year
         if (!req.query.year) {
             res.send('please specify a year (or comma separated list of years)');
+            return;
         }
         //create array of muni fips codes
         var muni = (req.query.fips).split(",");
@@ -79,21 +80,13 @@ module.exports = function(app, pg, conString) {
             return;
         }
         //create sql selector for years
-        for (j = 0; j < year.length; j++) {
-            yearstring = yearstring + schtbl + " year = " + year[j] + " OR ";
-        }
-        //remove stray OR from end of sql selector
-        yearstring = yearstring.substring(0, yearstring.length - 3);
-
-
-        //create sql selector for years
-		var yearsting = ' year = ' + year[j];
+        var yearstring = ' year = ' + year[0];
         for (j = 1; j < year.length; j++) {
             yearstring = yearstring + " OR year = " + year[j];
         }
 
                 //put it all together
-        var sqlstring = basequery + ' WHERE ( ' + munistring + ') AND (' + yearstring + ');'
+        var sqlstring = basequery + '( ' + munistring + ') AND (' + yearstring + ');'
        
         sendtodatabase(sqlstring, pg, conString, res);
     });
